@@ -29,8 +29,9 @@ export default function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({ name, address, email, password });
-        // const url = process.env.REACT_APP_BASE_URL
-        // console.log(url)
+        if (name === "" || email === "" || password === "") {
+            alert(`Please Fill Mandatory * Fileld`)
+        }
         fetch(`${BackendURL}/signup`, {
             method: "POST",
             crossDomain: true,
@@ -49,11 +50,14 @@ export default function Register() {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data, "userRegister");
+                if (data.status === "NO") {
+                    alert("User Already Exists")
+                }
                 navigate(redirectPath, { replace: true });
             })
             .catch((err) => console.log(err));
     };
-    // name,{email,password},age,gender,phonenumber,address(opt)
+    // {name,email,password}(required) but age,gender,phonenumber,address(opt)
     return (
         <Flex minH={"100vh"} align={"center"} justify={"center"} bg="#F1F6F5">
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -78,6 +82,7 @@ export default function Register() {
                                 type="text"
                                 placeholder="Name"
                                 onChange={(e) => SetName(e.target.value)}
+                                required
                             />
                         </FormControl>
 
@@ -96,6 +101,7 @@ export default function Register() {
                                 placeholder="Email"
                                 type="email"
                                 onChange={(e) => Setemail(e.target.value)}
+                                required
                             />
                         </FormControl>
                         <FormControl id="phone">
