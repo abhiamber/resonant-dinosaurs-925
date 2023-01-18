@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import BackendURL from '../BackendURL';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
-import { Alert, AlertIcon, Box, Flex, Heading, Spinner, Stack, Table, Tbody, Td, Thead, Tr, Text, FormControl, FormLabel, Input, Button, useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex, Heading, Spinner, Stack, Table, Tbody, Td, Thead, Tr, FormControl, FormLabel, Input, Button, useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Container } from '@chakra-ui/react';
+import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai';
 
 const Admin = () => {
     const navigate = useNavigate();
@@ -106,8 +107,8 @@ const Admin = () => {
                 Somthing went wrong!
             </Alert>}
 
-            <Box border="1px solid black">
-                <Table variant={"striped"} >
+            <Box>
+                <Table variant={"striped"}>
                     <Thead fontSize={"23px"} color="blue">
                         <Tr>
                             <Td>Name</Td>
@@ -125,8 +126,8 @@ const Admin = () => {
                                 <Td>{ele.email}</Td>
                                 <Td>{ele.address}</Td>
                                 <Td>{ele.createdAt}</Td>
-                                <Td><Button variant={"outline"} color={"green"} onClick={() => handleUpdate(ele._id)}>Update</Button></Td>
-                                <Td><Button variant={"outline"} color={"red"} onClick={() => handleRemove(ele._id)}>Remove</Button></Td>
+                                <Td><Button variant={"outline"} color={"green"} onClick={() => handleUpdate(ele._id)}> <AiOutlineEdit /></Button></Td>
+                                <Td><Button variant={"outline"} color={"red"} onClick={() => handleRemove(ele._id)}> <AiFillDelete /> </Button></Td>
                             </Tr>
                         )}
                     </Tbody>
@@ -142,8 +143,8 @@ const Admin = () => {
                         <ModalCloseButton />
                         <ModalBody>
                             <Box>
-                                <Flex minH={"100vh"} align={"center"} justify={"center"} bg="#F1F6F5">
-                                    <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+                                <Flex minH={"0vh"} align={"center"} justify={"center"} bg="#F1F6F5">
+                                    <Stack spacing={8} mx={"auto"} maxW={{ base: "lg", sm: "sm", lg: "lg", xl: "lg", "2xl": "lg" }} py={12} px={6}>
                                         <Box
                                             rounded={"lg"}
                                             bg={useColorModeValue("white", "gray.700")}
