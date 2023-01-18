@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Utilis/Auth";
 import BackendURL from "../BackendURL";
 
@@ -39,7 +39,7 @@ export default function Login() {
     useEffect(() => {
         /*global google */
         google.accounts.id.initialize({
-            client_id: "813331330697-cs2k0e0n10a373lmamjkcsa1qfu99gph.apps.googleusercontent.com",
+            client_id: "514340861987-f7tbdfd063bbb72d0452dm5je7onj1vj.apps.googleusercontent.com",
             callback: handleCallbackResponse,
         });
         google.accounts.id.renderButton(document.getElementById("signInDiv"), {
@@ -69,6 +69,15 @@ export default function Login() {
         })
             .then((res) => res.json())
             .then((data) => {
+                if (data.status === "NO") {
+                    if (data.message === "user not found") {
+                        alert("user not Exist Please Signup First")
+                        navigate('/register');
+                    }
+                    if (data.message === "Unauthorized") {
+                        alert("Please fill correct password")
+                    }
+                }
                 if (data.status === "OK") {
                     alert("Login Successful");
                     login(data);
@@ -79,7 +88,7 @@ export default function Login() {
             .catch((e) => alert("ERROR", e.message));
     };
 
-    if(first.name){
+    if (first.name) {
         console.log(first.name);
         alert(`Login Successful with ${first.name}`);
         navigate(redirectPath, { replace: true });
@@ -125,7 +134,7 @@ export default function Login() {
                         <Box id="signInDiv"></Box>
 
 
-                        
+
 
                         <Stack spacing={10}>
                             <Stack
