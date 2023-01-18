@@ -1,15 +1,14 @@
 import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  // Img
+    Flex,
+    Box,
+    FormControl,
+    FormLabel,
+    Input,
+    Stack,
+    Button,
+    Heading,
+    Text,
+    useColorModeValue,
 } from "@chakra-ui/react";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
@@ -17,8 +16,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Utilis/Auth";
 import BackendURL from "../BackendURL";
 
-export default function Login() {
 
+export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     // const [user, setUser] = useState("");
@@ -166,11 +165,7 @@ export default function Login() {
 
                 </Box>
 
-
             </Stack>
-          </Stack>
-        </Box>
-      </Stack>
-    </Flex>
-  );
-}
+        </Flex>
+    );
+};
