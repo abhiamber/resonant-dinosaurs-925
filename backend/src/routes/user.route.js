@@ -2,16 +2,34 @@ const express = require("express");
 const app = express.Router();
 const UserModel = require("../models/user.model");
 
-// ****************list of all users*************
+// ****************list of all users with Pagination & Sorting/Filtering*************
 app.get("/", async (req, res) => {
+    let { page = 1, limit = 5, name, address } = req.query;
     try {
-        const user = await UserModel.find();
-        // console.log(user);
-        return res.status(200).send({ message: "OK", user });
+        if (page && limit && name) {
+            let user = await UserModel.find({ name: { $regex: `${name}`, $options: "six" } });
+            res.status(200).send({ message: "OK", user });
+        } else if (page && limit && address) {
+            let user = await UserModel.find({ address: { $regex: `${address}`, $options: "six" } });
+            res.status(200).send({ message: "OK", user });
+        } else if (page && limit) {
+            if (Number(page) === 1) {
+                let user = await UserModel.find().skip(0).limit(+limit);
+                res.status(200).send({ message: "OK", user });
+            } else {
+                let s = Number(page) * Number(limit) - Number(limit);
+                let user = await UserModel.find().skip(s).limit(+limit);
+                res.status(200).send({ message: "OK", user });
+            }
+        } else {
+            const user = await UserModel.find();
+            return res.status(200).send({ message: "OK", user });
+        }
     } catch (e) {
         return res.send(e.message);
     }
 });
+
 
 // ************Update the user from list****************
 app.patch("/update/:id", async (req, res) => {
