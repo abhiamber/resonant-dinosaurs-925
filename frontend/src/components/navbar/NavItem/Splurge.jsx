@@ -81,7 +81,7 @@ const Splurge = () => {
   return (
     <Popover trigger="hover">
       <PopoverTrigger>
-        <Box className={"blackHover"} p="7px">
+        <Box className={"blackHover"} fontWeight={630} p="7px">
           SPLURGE{" "}
         </Box>
       </PopoverTrigger>
