@@ -49,7 +49,7 @@ const Productdetails = () => {
                 <Text marginTop={'5px'}><b style={{ fontSize: '18px' }}>Quantities</b> : Only <b style={{ color: 'red' }}>{pro.quantity}</b> items left!!!</Text>
                 <SimpleGrid columns={[1, 2, 2, 2]} gap='8px' marginTop={'20px'}>
                     <Box width={'100%'}>
-                        <Button className='cart_button' bg="#6600ff" _hover={{bg:'#6600ff'}}>Add To Cart</Button>
+                        <Button className='cart_button' bg="#6600ff" _hover={{ bg: '#6600ff' }} onClick={()=>handleAdd(item._id)}>Add To Cart</Button>
                     </Box>
                     <Box width={'100%'}>
                         <Button bg='white' border='1px solid grey' padding='25px 60px' width='100%'>Wishlist</Button>
@@ -76,13 +76,13 @@ const Productdetails = () => {
                     <Box>
                         <Box display={'flex'} gap='5px'>
                             <Text color={'gray.600'} fontSize='14px'>Sold By : </Text>
-                            <Text fontSize={'14px'} fontWeight='500'>Avni Beauty Distributors LLP </Text> 
+                            <Text fontSize={'14px'} fontWeight='500'>Avni Beauty Distributors LLP </Text>
                         </Box>
-                            <Text fontSize={'14px'} fontWeight='500'> (MP)- PB MUM</Text>
+                        <Text fontSize={'14px'} fontWeight='500'> (MP)- PB MUM</Text>
                         <Image src='https://media5.ppl-media.com/mediafiles/ecomm/misc/1472630541_purplle-fullfilled.png' alt='certified' />
                     </Box>
                     <Box>
-                        <Text color={'#2d4ef3ef'} _hover={{cursor:'pointer'}} fontSize='14px'>View All 5 Sellers</Text>
+                        <Text color={'#2d4ef3ef'} _hover={{ cursor: 'pointer' }} fontSize='14px'>View All 5 Sellers</Text>
                     </Box>
                 </Box>
             </Box>

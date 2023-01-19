@@ -4,7 +4,6 @@ const LoginRoute = express.Router();
 const jwt = require("jsonwebtoken");
 const Auth = require("../models/user.model");
 
-
 LoginRoute.post("/", async (req, res) => {
     const { email, password } = req.body;
     try {
