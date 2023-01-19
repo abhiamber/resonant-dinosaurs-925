@@ -81,7 +81,7 @@ const Shop = () => {
   return (
     <Popover trigger="hover">
       <PopoverTrigger>
-        <Box className={"blackHover"} p="7px">
+        <Box className={"blackHover"} p="7px" fontWeight={630}>
           SHOP CATOGORIES{" "}
         </Box>
       </PopoverTrigger>

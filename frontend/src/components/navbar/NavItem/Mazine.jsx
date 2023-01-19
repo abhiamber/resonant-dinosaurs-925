@@ -81,7 +81,7 @@ const Mazine = () => {
   return (
     <Popover trigger="hover">
       <PopoverTrigger>
-        <Box className={"blackHover"} p="7px">
+        <Box className={"blackHover"} fontWeight={630} p="7px">
           MAGAZINE{" "}
         </Box>
       </PopoverTrigger>

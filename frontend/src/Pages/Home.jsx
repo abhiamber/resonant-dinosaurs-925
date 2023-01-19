@@ -1,11 +1,12 @@
+import { Box } from "@chakra-ui/react";
 import AsCatSlider from "../components/AsCatSlider";
-import AsImgGallery from "../components/AsImgGallery";
+import AsImgSlider from "../components/AsImgSlider";
 
-export default function Home () {
-    return (
-        <>
-            <AsImgGallery />
-            <AsCatSlider />
-        </>
-    )
+export default function Home() {
+  return (
+    <Box>
+      <AsImgSlider />
+      <AsCatSlider />
+    </Box>
+  );
 }

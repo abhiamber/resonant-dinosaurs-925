@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import Brand from "../NavItem/Brand";
 import Elite from "../NavItem/Elite";
@@ -16,7 +16,7 @@ const NavItem = () => {
       gap="30px"
       bg="white"
       cursor={"pointer"}
-      boxShadow={` rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;`}
+      // boxShadow={` rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;`}
       justifyContent="center"
     >
       <Shop />
