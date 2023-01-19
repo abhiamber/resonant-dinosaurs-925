@@ -12,6 +12,7 @@ const Admin = () => {
     const [error, SetError] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [id, setID] = useState("");
+    const [page, setPage] = useState(1);
     const [state, setState] = useState({
         name: "",
         email: "",
@@ -19,9 +20,22 @@ const Admin = () => {
     });
 
     useEffect(() => {
-        getUser();
-    }, []);
+        getUser(page);
+    }, [page]);
 
+    const handleFilter = (e) => {
+        const { value } = e.target;
+        getUser(page, value, "");
+    };
+    const handleFilter1 = (e) => {
+        const { value } = e.target;
+        getUser(page, "", value);
+    };
+
+    const handlePage = (val) => {
+        let value = val + page;
+        setPage(value);
+    };
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -39,20 +53,20 @@ const Admin = () => {
         }).then((res) => res.json()).then((res) => {
             console.log(res);
             alert(`${res.msg}`);
-            getUser();
+            getUser(page);
         }).catch((err) => {
             console.log(err)
         });
-
         setState({ name: "", email: "", address: "" });
     };
 
-    const getUser = async () => {
+
+    const getUser = async (page, qu = "", qa = "") => {
         setLoading(true);
         setTimeout(() => {
             setLoading(false)
         }, 5000);
-        let res = await fetch(`${BackendURL}/user/`, {
+        let res = await fetch(`${BackendURL}/user/?page=${page}&limit=5&name=${qu}&address=${qa}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -90,7 +104,7 @@ const Admin = () => {
             },
         }).then((res) => res.json()).then((res) => {
             console.log(res);
-            getUser();
+            getUser(page);
             alert(`${res.msg}`)
         }).catch((err) => {
             console.log(err)
@@ -106,6 +120,11 @@ const Admin = () => {
                 <AlertIcon />
                 Somthing went wrong!
             </Alert>}
+
+            <Box m={"1% 0"} display={"flex"} justifyContent="center" alignItems={"center"} gap="10px">
+                <Input w={{ base: "15%", sm: "31%", lg: "15%" }} placeholder='Search Username' onChange={handleFilter}></Input>
+                <Input w={{ base: "15%", sm: "30%", lg: "15%" }} placeholder='Search Address' onChange={handleFilter1}></Input>
+            </Box>
 
             <Box>
                 <Table variant={"striped"}>
@@ -217,6 +236,12 @@ const Admin = () => {
                 </Modal>
             </Box>
 
+
+            <Box display={"flex"} alignItems="center" justifyContent={"center"} mt="1%" gap={"5px"}>
+                <Button variant={"outline"} color="green" isDisabled={page <= 1} onClick={() => handlePage(-1)}>PRE</Button>
+                <Button variant={"outline"} color="red" isDisabled={true}>{page}</Button>
+                <Button variant={"outline"} color="green" isDisabled={page >= 5} onClick={() => handlePage(1)}>NEXT</Button>
+            </Box>
 
 
         </>
