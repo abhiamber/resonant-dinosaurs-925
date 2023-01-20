@@ -12,18 +12,41 @@ import {
   Image,
   Input,
   Spacer,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import NavItem from "./NavbarItem/NavItem";
 import logo from "../../image/P.png";
 import { CiFaceSmile, CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  // GetToQueryProduct,
+  GetToSearchQueryProduct,
+} from "../../redux/prod/prod.action";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const btnRef = React.useRef();
+
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+
+  let [query, setQuery] = useState();
+
+  const handleSearch = () => {
+    if (!query) {
+      return alert("Your Query is empty");
+    }
+
+    dispatch(GetToSearchQueryProduct(query));
+    
+    Navigate("/productmain", { state: { q: "S", query } });
+    // console.log(query);
+  };
+
   return (
     <Flex
       w="100%"
@@ -41,15 +64,17 @@ const Navbar = () => {
       // bg="white"
     >
       <Box p="4">
-        <Image
-          boxSize="60px"
-          borderRadius={"5px"}
-          w="80px"
-          h="40px"
-          objectFit="cover"
-          src={logo}
-          alt="logo"
-        />
+        <Link to="/">
+          <Image
+            boxSize="60px"
+            borderRadius={"5px"}
+            w="80px"
+            h="40px"
+            objectFit="cover"
+            src={logo}
+            alt="logo"
+          />
+        </Link>
       </Box>
       <Spacer />
       <Box p="4">
@@ -95,6 +120,7 @@ const Navbar = () => {
                         borderBottomColor={"#fd1d92"}
                         focusBorderColor="#fd1d92"
                         placeholder="Type here..."
+                        onChange={(e) => setQuery(e.target.value)}
                       />
                       <Text
                         ml="-10px"
@@ -102,6 +128,7 @@ const Navbar = () => {
                         fontSize={"30px"}
                         color="#fd1d92"
                         bg="white"
+                        onClick={handleSearch}
                       >
                         <CiSearch />
                       </Text>
@@ -121,8 +148,15 @@ const Navbar = () => {
             <CiFaceSmile />
           </Box>
 
-          <Box color={"black"} fontWeight="light" fontSize="40px">
-            <CiShoppingCart />
+          <Box
+            color={"black"}
+            fontWeight="light"
+            fontSize="40px"
+            cursor={"pointer"}
+          >
+            <Link to="/cart">
+              <CiShoppingCart />
+            </Link>
           </Box>
         </Flex>
       </Box>

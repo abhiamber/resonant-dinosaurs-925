@@ -106,7 +106,6 @@ const Brand = () => {
                   </Box>
                 ))}
             </Flex>
-            {<Box>View All Brands</Box>}
           </Flex>
           <Box h="1px" bg="black" w="95%" m="auto"></Box>
         </PopoverHeader>

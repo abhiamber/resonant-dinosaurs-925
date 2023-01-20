@@ -11,7 +11,7 @@ function App() {
 
   useLayoutEffect(() => {
     const handleScroll = (e) => {
-      setScrolled(window.scrollY > 2);
+      setScrolled(window.scrollY > 0);
     };
 
     window.addEventListener("scroll", handleScroll);

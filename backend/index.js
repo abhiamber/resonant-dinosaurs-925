@@ -7,9 +7,10 @@ const connect = require("./src/config/db");
 const UserRoutes = require("./src/routes/user.route");
 const LoginRoute = require("./src/routes/login.route");
 const SignupRotue = require("./src/routes/signup.route");
-const { cartRouter } = require("./src/routes/cart.route")
+const { cartRouter } = require("./src/routes/cart.route");
+const ProdRoute = require("./src/routes/prod.route");
 const { validate } = require("./src/middleware/validate.middleware");
-const { authuser } = require("./src/middleware/cart.middleware")
+const { authuser } = require("./src/middleware/cart.middleware");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 mongoose.set("strictQuery", false);
@@ -21,21 +22,23 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {
-    res.send("yahoo!!!");
+  res.send("yahoo!!!");
 });
 
 app.use("/signup", SignupRotue);
 app.use("/login", LoginRoute);
-app.use(authuser)
+app.use("/prod", ProdRoute);
+app.use(authuser);
+
 app.use("/cart", cartRouter);
-app.use(validate);//it is admin validation;
+app.use(validate); //it is admin validation;
 app.use("/user", UserRoutes);
 httpServer.listen(PORT, async () => {
-    try {
-        await connect();
-        console.log("connected to DB");
-    } catch (e) {
-        console.log({ message: e.message });
-    }
-    console.log(`Server is running at port ${PORT}`)
+  try {
+    await connect();
+    console.log("connected to DB");
+  } catch (e) {
+    console.log({ message: e.message });
+  }
+  console.log(`Server is running at port ${PORT}`);
 });

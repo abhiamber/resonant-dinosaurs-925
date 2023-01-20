@@ -95,6 +95,7 @@ const Mazine = () => {
                 catogoryKey.map((e, i) => (
                   <Box
                     key={i}
+                    fontWeight="600"
                     className={"greyHover"}
                     p="10px"
                     onMouseOver={() => {
@@ -105,7 +106,6 @@ const Mazine = () => {
                   </Box>
                 ))}
             </Flex>
-            {<Box>View All Brands</Box>}
           </Flex>
           <Box h="1px" bg="black" w="95%" m="auto"></Box>
         </PopoverHeader>
@@ -116,7 +116,7 @@ const Mazine = () => {
               Object.keys(catogoryTypes).map((keyName, keyindex) => {
                 return (
                   <Box key={keyindex}>
-                    <h2>{keyName}</h2>
+                    <Box fontWeight="500">{keyName}</Box>
                     {catogoryTypes[keyName] &&
                       catogoryTypes[keyName].map((el, i) => {
                         return <Box key={i}>{el}</Box>;
