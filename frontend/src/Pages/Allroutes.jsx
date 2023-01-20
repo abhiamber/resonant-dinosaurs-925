@@ -5,6 +5,7 @@ import Home from "./Home";
 import Login from "./Login";
 import ProductMain from "./ProductMain";
 import Register from "./Register";
+import ProductMain from "./ProductMain"
 export default function AllRoutes() {
     return (
         <Routes>
@@ -13,7 +14,6 @@ export default function AllRoutes() {
             <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/productmain" element={<ProductMain />} />
-
         </Routes>
     );
 }

@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import "./Cart.css"
 import Cartitems from '../Components/Cartitems'
-import { Box, SimpleGrid, Image, Text, Divider, Button } from "@chakra-ui/react"
+import {
+    Box, SimpleGrid, Image, Text, Divider, Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    FormControl,
+    FormLabel,
+    Input,
+} from "@chakra-ui/react"
 const Cart = () => {
     const [cart, setCart] = useState([])
     const [pin, setPin] = useState("")
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const initialRef = React.useRef(null)
+    const finalRef = React.useRef(null)
     useEffect(() => {
         fetch(`http://localhost:8080/cart`, {
             headers: {
@@ -66,7 +82,45 @@ const Cart = () => {
                         <Text fontSize='18px' color='black'>Order Total</Text>
                         <Text fontSize='18px' color='black'>₹{total - total * (10 / 100)}</Text>
                     </Box>
-                    <Button className='placeorder' bg={'#e40980'} borderRadius='0px' _hover={{ bg: '#e40980' }}>PLACE ORDER</Button>
+                    <Button className='placeorder' bg={'#e40980'} borderRadius='0px' _hover={{ bg: '#e40980' }} onClick={onOpen}>PLACE ORDER</Button>
+
+                    <Modal
+                        initialFocusRef={initialRef}
+                        finalFocusRef={finalRef}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                    >
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalHeader>Enter your delivery details</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody textAlign={'left'} pb={6} display='flex' flexDirection={'column'} gap='10px'>
+                                <FormControl>
+                                    <FormLabel mt={'5px'}>Name *</FormLabel>
+                                    <Input ref={initialRef} />
+                                    <FormLabel mt={'5px'}>Pincode *</FormLabel>
+                                    <Input type={'number'} />
+                                    <FormLabel mt={'5px'}>Address *</FormLabel>
+                                    <Input />
+                                    <FormLabel mt={'5px'}>Landmark </FormLabel>
+                                    <Input />
+                                    <FormLabel mt={'5px'}>City *</FormLabel>
+                                    <Input />
+                                    <FormLabel mt={'5px'}>State *</FormLabel>
+                                    <Input />
+                                    <FormLabel mt={'5px'}>Mobile *</FormLabel>
+                                    <Input type={'number'} />
+                                </FormControl>
+                                <p>Address Type preferences are used to plan your delivery. However, shipments can sometimes arrive early or latter then planned.</p>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button bg={'#e40980'} borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mr={3}>
+                                    Proceed To checkout
+                                </Button>
+                                <Button onClick={onClose}>Cancel</Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
                     <p>Need Help? 8655500222 </p>
                 </Box>
             </Box>

@@ -32,9 +32,8 @@ function App() {
               <hr />
               <SearchBox />
             </Box>
-          )}
-
-          <AllRoutes />
+          )} 
+          <AllRoutes /> 
         </CartContextProvider>
       </SearchContextProvider>
     </div>
