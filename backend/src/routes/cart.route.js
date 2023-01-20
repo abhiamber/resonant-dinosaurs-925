@@ -1,9 +1,9 @@
 const express = require("express")
-
+const { authuser } = require('../middleware/cart.middleware');
 const { CartModel } = require("../models/cart.model")
 const cartRouter = express.Router()
 
-
+cartRouter.use(authuser);
 cartRouter.get("/", async (req, res) => {
     try {
         const data = await CartModel.find()

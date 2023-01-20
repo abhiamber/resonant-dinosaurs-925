@@ -19,7 +19,7 @@ export default function AsSpLooks() {
   return (
     <>
       <Box mt="50px">
-        <Image src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673939275_republic-day-special-looksapp.gif" />
+        <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673939275_republic-day-special-looksapp.gif" />
       </Box>
       <Box mt="40px" pl="120px" pr="120px">
         <Slider {...settings}>

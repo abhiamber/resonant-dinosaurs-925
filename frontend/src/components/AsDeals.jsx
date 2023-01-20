@@ -22,7 +22,7 @@ export default function AsDeals() {
         <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1674099518_mamaearth_web_thick-strip.gif" />
       </Box>
       <Box mt="60px">
-        <Image src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673939041_unmissable-deals_web_10.gif" />
+        <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673939041_unmissable-deals_web_10.gif" />
       </Box>
       <Box mt="40px" pl="120px" pr="120px">
         <Slider {...settings}>

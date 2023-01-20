@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express.Router();
 const UserModel = require("../models/user.model");
+const { validate } = require('../middleware/validate.middleware');
+app.use(validate); //it is admin validation;
 
 // ****************list of all users with Pagination & Sorting/Filtering*************
 app.get("/", async (req, res) => {
