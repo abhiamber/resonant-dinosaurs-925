@@ -7,12 +7,8 @@ const connect = require("./src/config/db");
 const UserRoutes = require("./src/routes/user.route");
 const LoginRoute = require("./src/routes/login.route");
 const SignupRotue = require("./src/routes/signup.route");
-
 const { cartRouter } = require("./src/routes/cart.route");
 const ProdRoute = require("./src/routes/prod.route");
-
-
-const { cartRouter } = require("./src/routes/cart.route")
 const OrderRouter = require('./src/routes/order.route');
 
 require("dotenv").config();
@@ -31,15 +27,10 @@ app.get("/", async (req, res) => {
 
 app.use("/signup", SignupRotue);
 app.use("/login", LoginRoute);
-
-app.use("/prod", ProdRoute);
-
-
-
-
 app.use("/user", UserRoutes);
-app.use("/cart", cartRouter);
+app.use("/prod", ProdRoute);
 app.use('/order', OrderRouter);
+app.use("/cart", cartRouter);
 
 httpServer.listen(PORT, async () => {
   try {
