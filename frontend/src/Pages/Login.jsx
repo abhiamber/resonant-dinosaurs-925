@@ -131,7 +131,7 @@ export default function Login() {
 
 
 
-                        <Heading>{"------or--------"}</Heading>
+                        <Text>{"------ or connect with --------"}</Text>
                         <Box id="signInDiv"></Box>
 
 
