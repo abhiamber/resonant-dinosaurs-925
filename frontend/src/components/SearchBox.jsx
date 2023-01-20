@@ -7,9 +7,15 @@ import {
   Input,
   Button,
   useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverHeader,
+  PopoverBody,
   // useColorMode,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { CiSearch, CiHeart, CiFaceSmile, CiShoppingCart } from "react-icons/ci";
 // import { IconName } from "react-icons/bi";
 import logo from "../image/P.png";
@@ -23,10 +29,12 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../Utilis/Auth";
 
 const SearchBox = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const { user, logout } = useContext(AuthContext);
   const btnRef = React.useRef();
 
   return (
@@ -106,9 +114,35 @@ const SearchBox = () => {
               <CiHeart />
             </Box>
 
-            <Box color={"black"} fontWeight="light" fontSize="40px">
-              <CiFaceSmile />
+
+
+            <Box color={"black"} fontWeight="light" fontSize="40px" mt="-1.5">
+              <Popover trigger="hover">
+                <PopoverTrigger>
+                  <Box className={"blackHover"} p="7px">
+                    <CiFaceSmile />
+                  </Box>
+                </PopoverTrigger>
+                <PopoverContent w="15vw">
+                  <PopoverArrow />
+                  <PopoverHeader>
+                    <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
+                    <Flex mx="10px" alignItems="center" justifyContent="space-between" flexDirection={"column"}>
+                      {user ? <Text color={"green"} fontSize="20px"><Link to="#">{user.user}</Link></Text> : <Button color={"black"} variant="outline" w="150px" bg="blue"><Link to="/login">Sign in</Link></Button>}
+                      {user ? <Text fontSize={"17px"} color={"red"}><Link>Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
+                      {user ? <Text color={"red"}><Link onClick={logout}>Logout</Link></Text> : <Text fontSize={"20px"} color={"red"}><Link to="/register">Register Now.</Link></Text>}
+                    </Flex>
+                    <Box h="1px" bg="black" w="70%" m="auto"></Box>
+                  </PopoverHeader>
+                  <PopoverBody>
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
             </Box>
+
+
+
+
 
             <Box color={"black"} fontWeight="light" fontSize="40px">
               <CiShoppingCart />

@@ -26,10 +26,9 @@ app.get("/", async (req, res) => {
 
 app.use("/signup", SignupRotue);
 app.use("/login", LoginRoute);
-app.use(authuser)
-app.use("/cart", cartRouter);
-app.use(validate);//it is admin validation;
 app.use("/user", UserRoutes);
+app.use("/cart", cartRouter);
+
 httpServer.listen(PORT, async () => {
     try {
         await connect();
