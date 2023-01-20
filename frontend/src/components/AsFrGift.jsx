@@ -20,7 +20,7 @@ export default function AsFrGift() {
   return (
     <>
       <Box mt="40px">
-        <Image src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673939614_get-free-gifts-web.gif" />
+        <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673939614_get-free-gifts-web.gif" />
       </Box>
       <Box mt="40px" pl="120px" pr="120px">
         <Slider {...settings}>
