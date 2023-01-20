@@ -16,7 +16,7 @@ export default function AsBudgetBuy() {
   return (
     <>
       <Box mt="50px">
-        <Image src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673943895_budget-buy-for-you-web_17_17.gif" />
+        <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1673943895_budget-buy-for-you-web_17_17.gif" />
       </Box>
       <SimpleGrid columns={4} pl="120px" pr="120px" mt="40px">
         <Box>
@@ -33,7 +33,7 @@ export default function AsBudgetBuy() {
         </Box>
       </SimpleGrid>
       <Box mt="10px">
-        <Image src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2/mediafiles/ecomm/misc/1620711142_elite-web.png" />
+        <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2/mediafiles/ecomm/misc/1620711142_elite-web.png" />
       </Box>
       <Box mt="50px">
         <Slider {...settings}>

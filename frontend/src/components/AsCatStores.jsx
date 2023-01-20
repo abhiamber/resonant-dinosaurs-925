@@ -90,8 +90,8 @@ export default function AsCatStores() {
           </Box>
         </Slider>
       </Box>
-      <Box mt="60px">
-        <Image src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1674026919_reminder-elite-1280x100.gif" />
+      <Box mt="60px"  >
+        <Image m="auto" src="https://media6.ppl-media.com/tr:w-1280,c-at_max,pr-true,dpr-2,f-gif/mediafiles/ecomm/misc/1674026919_reminder-elite-1280x100.gif" />
       </Box>
     </>
   );

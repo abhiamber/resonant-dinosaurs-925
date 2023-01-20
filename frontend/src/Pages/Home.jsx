@@ -1,3 +1,6 @@
+import AsBigBrand from "../components/AsBigBrand";
+import AsBigDeals from "../components/AsBigDeals";
+import AsBottomSection from "../components/AsBottomSection";
 import AsBudgetBuy from "../components/AsBudgetBuy";
 import AsCatGallery from "../components/AsCatGallery";
 import AsCatSlider from "../components/AsCatSlider";
@@ -22,6 +25,9 @@ export default function Home () {
             <AsSpLooksGallery />
             <AsFrGift />
             <AsBudgetBuy />
+            <AsBigBrand />
+            <AsBigDeals />
+            <AsBottomSection />
         </>
     )
 }
