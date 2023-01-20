@@ -8,8 +8,7 @@ const UserRoutes = require("./src/routes/user.route");
 const LoginRoute = require("./src/routes/login.route");
 const SignupRotue = require("./src/routes/signup.route");
 const { cartRouter } = require("./src/routes/cart.route")
-const { validate } = require("./src/middleware/validate.middleware");
-const { authuser } = require("./src/middleware/cart.middleware")
+const OrderRouter = require('./src/routes/order.route');
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 mongoose.set("strictQuery", false);
@@ -26,10 +25,10 @@ app.get("/", async (req, res) => {
 
 app.use("/signup", SignupRotue);
 app.use("/login", LoginRoute);
-app.use(authuser)
-app.use("/cart", cartRouter);
-app.use(validate);//it is admin validation;
 app.use("/user", UserRoutes);
+app.use("/cart", cartRouter);
+app.use('/order', OrderRouter);
+
 httpServer.listen(PORT, async () => {
     try {
         await connect();

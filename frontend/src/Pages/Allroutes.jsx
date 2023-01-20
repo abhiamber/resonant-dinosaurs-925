@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Admin from "./Admin";
 import Home from "./Home";
 import Login from "./Login";
+import ProductMain from "./ProductMain";
 import Register from "./Register";
 import ProductMain from "./ProductMain"
 export default function AllRoutes() {
