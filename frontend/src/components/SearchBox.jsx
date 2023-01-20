@@ -16,9 +16,7 @@ import {
   // useColorMode,
 } from "@chakra-ui/react";
 
-import React, { useState } from "react";
-
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import { CiSearch, CiHeart, CiFaceSmile, CiShoppingCart } from "react-icons/ci";
 // import { IconName } from "react-icons/bi";
@@ -47,7 +45,7 @@ const SearchBox = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-
+  const btnRef = React.useRef();
   let [query, setQuery] = useState();
 
   const handleSearch = () => {

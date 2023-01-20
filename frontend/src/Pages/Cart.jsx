@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Cart.css"
-import Cartitems from '../Components/Cartitems'
+import Cartitems from '../components/Cartitems'
 import {
     Box, SimpleGrid, Image, Text, Divider, Button,
     Modal,

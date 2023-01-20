@@ -22,8 +22,11 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-
-import React, { useState } from "react";
+import React, { useContext,useState } from "react";
+import NavItem from "./NavbarItem/NavItem";
+import logo from "../../image/P.png";
+import { CiFaceSmile, CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
+import { AuthContext } from "../../Utilis/Auth";
 
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -35,12 +38,7 @@ import {
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
     const { user, logout } = useContext(AuthContext);
-import React, { useContext } from "react";
-import NavItem from "./NavbarItem/NavItem";
-import logo from "../../image/P.png";
-import { CiFaceSmile, CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../Utilis/Auth";
+
 
 
   const btnRef = React.useRef();
