@@ -15,6 +15,7 @@ import {
     FormLabel,
     Input,
 } from "@chakra-ui/react"
+
 const Cart = () => {
     const [cart, setCart] = useState([])
     const [pin, setPin] = useState("")
@@ -128,4 +129,5 @@ const Cart = () => {
     )
 }
 
-export default Cart
+
+export default Cart;

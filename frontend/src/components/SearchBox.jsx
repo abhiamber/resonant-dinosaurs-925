@@ -15,7 +15,11 @@ import {
   PopoverBody,
   // useColorMode,
 } from "@chakra-ui/react";
+
+import React, { useState } from "react";
+
 import React, { useContext } from "react";
+
 import { CiSearch, CiHeart, CiFaceSmile, CiShoppingCart } from "react-icons/ci";
 // import { IconName } from "react-icons/bi";
 import logo from "../image/P.png";
@@ -29,13 +33,34 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../Utilis/Auth";
 
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  // GetToQueryProduct,
+  GetToSearchQueryProduct,
+} from "../redux/prod/prod.action";
+
 const SearchBox = () => {
+ const { user, logout } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, logout } = useContext(AuthContext);
-  const btnRef = React.useRef();
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+
+  let [query, setQuery] = useState();
+
+  const handleSearch = () => {
+    if (!query) {
+      return alert("Your Query is empty");
+    }
+
+    dispatch(GetToSearchQueryProduct(query));
+
+    Navigate("/productmain", { state: { q: "S", query } });
+    // console.log(query);
+  };
+
 
   return (
     <Box pt="5px" ml="38px">
@@ -77,12 +102,14 @@ const SearchBox = () => {
                       borderBottomColor={"#fd1d92"}
                       focusBorderColor="#fd1d92"
                       placeholder="Type here..."
+                      onChange={(e) => setQuery(e.target.value)}
                     />
                     <Text
                       ml="-10px"
                       fontSize={"30px"}
                       color="#fd1d92"
                       bg="white"
+                      onClick={handleSearch}
                     >
                       <CiSearch />
                     </Text>
@@ -97,15 +124,17 @@ const SearchBox = () => {
         </Box>
         <Spacer />
         <Box h="10" ml="-35px">
-          <Image
-            boxSize="60px"
-            borderRadius={"5px"}
-            w="80px"
-            h="40px"
-            objectFit="cover"
-            src={logo}
-            alt="logo"
-          />
+          <Link to="/">
+            <Image
+              boxSize="60px"
+              borderRadius={"5px"}
+              w="80px"
+              h="40px"
+              objectFit="cover"
+              src={logo}
+              alt="logo"
+            />
+          </Link>
         </Box>
         <Spacer />
         <Box w="12.85%" h="10" pl="10px">
@@ -145,7 +174,9 @@ const SearchBox = () => {
 
 
             <Box color={"black"} fontWeight="light" fontSize="40px">
-              <CiShoppingCart />
+              <Link to="/cart">
+                <CiShoppingCart />
+              </Link>
             </Box>
           </Flex>
         </Box>
