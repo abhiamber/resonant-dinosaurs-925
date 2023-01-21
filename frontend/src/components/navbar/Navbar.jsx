@@ -169,53 +169,6 @@ const Navbar = () => {
                 <PopoverArrow />
                 <PopoverHeader>
                   <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
-
-                  <Flex
-                    mx="10px"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    flexDirection={"column"}
-                  >
-                    {user ? (
-                      <Text color={"green"} fontSize="20px">
-                        <Link to="#">{user.user}</Link>
-                      </Text>
-                    ) : (
-                      <Button
-                        color={"black"}
-                        variant="outline"
-                        w="150px"
-                        bg="blue"
-                      >
-                        <Link to="/login">Sign in</Link>
-                      </Button>
-                    )}
-                    {user ? (
-                      <Text fontSize={"17px"} color={"red"}>
-                        <Link>Your Order</Link>
-                      </Text>
-                    ) : (
-                      <Text fontSize={"17px"} color={"red"}>
-                        <Link to="/register">New Customer?</Link>
-                      </Text>
-                    )}
-                    {user ? (
-                      <Text color={"red"}>
-                        <Link onClick={logout}>Logout</Link>
-                      </Text>
-                    ) : (
-                      <Text fontSize={"20px"} color={"red"}>
-                        <Link to="/register">Register Now.</Link>
-                      </Text>
-                    )}
-                  </Flex>
-                  <Box h="1px" bg="black" w="70%" m="auto"></Box>
-                </PopoverHeader>
-                <PopoverBody></PopoverBody>
-              </PopoverContent>
-            </Popover>
-          </Box>
-
                   <Flex mx="10px" alignItems="center" justifyContent="space-between" flexDirection={"column"}>
                     {user ? <Text color={"green"} fontSize="20px"><Link to="#">{user.user}</Link></Text> : <Button color={"black"} variant="outline" w="150px" bg="blue"><Link to="/login">Sign in</Link></Button>}
                     {user ? <Text fontSize={"17px"} color={"red"}><Link to="#">Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
