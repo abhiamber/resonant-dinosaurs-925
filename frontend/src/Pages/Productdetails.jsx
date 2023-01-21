@@ -24,17 +24,17 @@ const Productdetails = () => {
       .catch((err) => console.log(err));
   }, [params.id]);
   console.log(pro)
-  
+
   //   console.log(pro);
 
   const handleAdd = async () => {
     try {
-      fetch(`${BackendURL}/cart/additemtocart`, {
+      fetch(`${BackendURL}/cart/`, {
         method: "POST",
-        body: JSON.stringify(pro),
+        body: JSON.stringify({ productId: pro._id }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         },
       })
         .then((res) => res.json())
@@ -46,18 +46,18 @@ const Productdetails = () => {
     }
 
 
-    const res = await fetch(`${BackendURL}/order/post`, {
-      method: "POST",
-      body: JSON.stringify(pro),
-      headers: {
-        'Content-Type': 'application/json',
-        "email": localStorage.getItem("email")
-      }
-    }).then((res) => res.json()).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    });
+    // const res = await fetch(`${BackendURL}/order/post`, {
+    //   method: "POST",
+    //   body: JSON.stringify(pro),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     "email": localStorage.getItem("email")
+    //   }
+    // }).then((res) => res.json()).then((res) => {
+    //   console.log(res)
+    // }).catch((err) => {
+    //   console.log(err)
+    // });
 
 
   };

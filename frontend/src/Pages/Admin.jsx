@@ -14,6 +14,7 @@ const Admin = () => {
     const [id, setID] = useState("");
     const [page, setPage] = useState(1);
     const [orders, setOrders] = useState([]);
+    const [status, setStatus] = useState('');
     const [state, setState] = useState({
         name: "",
         email: "",
@@ -25,23 +26,23 @@ const Admin = () => {
         getOrders();
     }, [page]);
 
-
-
     const getOrders = async () => {
-        let res = await fetch(`${BackendURL}/order/get`, {
+        let res = await fetch(`${BackendURL}/order/getall`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "email": localStorage.getItem("email")
+                "email": localStorage.getItem("email"),
+                "token": localStorage.getItem("token")
             }
         }).then((res) => res.json())
             .then((res) => {
-                setOrders(res);
+                setOrders(res.delivered);
             }).catch((err) => {
                 console.log(err)
             })
     };
 
+    // console.log(orders);
 
     const handleFilter = (e) => {
         const { value } = e.target;
@@ -130,6 +131,29 @@ const Admin = () => {
             console.log(err)
         });
     };
+
+    const handleChangeStatus = async (id) => {
+        if (!status) {
+            return alert("Please fill correct Status")
+        }
+        let res = await fetch(`${BackendURL}/order/changestatus`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "email": localStorage.getItem("email"),
+                "token": localStorage.getItem("token")
+            },
+            body: JSON.stringify({ status, orderId: id })
+        }).then((res) => res.json()).then((res) => {
+            console.log(res);
+            // getUser(page);
+            getOrders();
+            alert(`${res.msg}`)
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    }
 
     const { name, email, address } = state;
     return (
@@ -276,20 +300,48 @@ const Admin = () => {
                             <Td>UserID</Td>
                             <Td>By</Td>
                             <Td>When</Td>
+                            <Td>Status</Td>
+                            <Td>Change Status</Td>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {orders ? orders.map((ele) =>
                             <Tr key={ele._id}>
-                                <Td>{ele.name}</Td>
-                                <Td>{ele.brand}</Td>
-                                <Td>{ele.userID}</Td>
-                                <Td>{ele.email}</Td>
-                                <Td>{ele.createdAt}</Td>
+                                <Td>{"ele.name"}</Td>
+                                <Td>{"ele.brand"}</Td>
+                                <Td>{"ele.userID"}</Td>
+                                <Td>{"ele.email"}</Td>
+                                <Td>{"ele.createdAt"}</Td>
+                                <Td>{ele.currentStatus}</Td>
+                                <Td>
+                                    <Button onClick={onOpen}>Change Status</Button>
+                                    <Modal isOpen={isOpen} onClose={onClose}>
+
+                                        <ModalOverlay />
+                                        <ModalContent>
+                                            <ModalHeader>Modal Title</ModalHeader>
+                                            <ModalCloseButton />
+                                            <ModalBody>
+                                                <Input _placeholder={"Status"} onChange={(e) => setStatus(e.target.value)}></Input>
+                                                <Button onClick={() => { onClose(); handleChangeStatus(ele._id) }}>submit</Button>
+                                            </ModalBody>
+
+                                            <ModalFooter>
+                                                <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                                    Close
+                                                </Button>
+                                            </ModalFooter>
+                                        </ModalContent>
+                                    </Modal></Td>
                             </Tr>
                         ) : <Heading>No Order Till Now</Heading>}
                     </Tbody>
                 </Table>
+
+
+
+
+
             </Box>
         </>
     );
