@@ -4,11 +4,16 @@ import Admin from "./Admin";
 import Cart from "./Cart";
 import Home from "./Home";
 import Login from "./Login";
-
 import Productdetails from "./Productdetails";
 
+
+
+
+
 import Register from "./Register";
-import ProductMain from "./ProductMain";
+import ProductMain from "./ProductMain"
+import Payment from "./Payment";
+
 export default function AllRoutes() {
   return (
     <Routes>
@@ -19,6 +24,7 @@ export default function AllRoutes() {
       <Route path="/productmain" element={<ProductMain />} />
       <Route path="/productmain/:id" element={<Productdetails />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Payment />}></Route>
     </Routes>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./Cart.css"
-import Cartitems from '../components/Cartitems'
+import Cartitems from '../Components/Cartitems'
+import BackendURL from '../BackendURL'
 import {
     Box, SimpleGrid, Image, Text, Divider, Button,
     Modal,
@@ -13,8 +14,9 @@ import {
     useDisclosure,
     FormControl,
     FormLabel,
-    Input,
+    Input
 } from "@chakra-ui/react"
+import { NavLink } from 'react-router-dom'
 
 const Cart = () => {
     const [cart, setCart] = useState([])
@@ -22,14 +24,17 @@ const Cart = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
+
+
     useEffect(() => {
-        fetch(`http://localhost:8080/cart`, {
+        fetch(`${BackendURL}/cart`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem("token")
+                'Authorization': localStorage.getItem("token"),
+                "user": localStorage.getItem("userID")
             }
         }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
-    }, [])
+    }, []);
     let total = Math.round(cart.reduce((a, c) => a + c.price, 0))
     total = total * 75;
     var date = new Date()
@@ -41,7 +46,7 @@ const Cart = () => {
                 <Text textAlign={'left'} fontSize='18px' color={'black'} fontWeight='bold'>MY Cart({cart.length})</Text>
                 {
                     cart ? cart.map((item) => (
-                        <Cartitems key={item._id} image_link={item.image_link} name={item.name} quantity={item.quantity} price={item.price} />
+                        <Cartitems key={item._id} pro_id={item._id} image_link={item.image_link} name={item.name} quantity={item.quantity} price={item.price} />
                     )) : <h1>Null</h1>
                 }
             </Box>
@@ -68,7 +73,7 @@ const Cart = () => {
                     </Box>
                     <Box className='pricesubdiv'>
                         <Text fontSize={['14px', '14px', '16px', '16px']}>Saving on MRP:</Text>
-                        <Text fontSize={['14px', '14px', '16px', '16px']}>₹{total * (10 / 100)}</Text>
+                        <Text fontSize={['14px', '14px', '16px', '16px']} color='red'>- ₹{total * (10 / 100)}</Text>
                     </Box>
                     <Box className='pricesubdiv'>
                         <Text fontSize={['14px', '14px', '16px', '16px']}>Subtotal:</Text>
@@ -115,9 +120,9 @@ const Cart = () => {
                                 <p>Address Type preferences are used to plan your delivery. However, shipments can sometimes arrive early or latter then planned.</p>
                             </ModalBody>
                             <ModalFooter>
-                                <Button bg={'#e40980'} borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mr={3}>
+                                <NavLink to="/checkout"><Button bg={'#e40980'} borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mr={3}>
                                     Proceed To checkout
-                                </Button>
+                                </Button></NavLink>
                                 <Button onClick={onClose}>Cancel</Button>
                             </ModalFooter>
                         </ModalContent>

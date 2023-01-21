@@ -1,14 +1,16 @@
 import { Box, Button, Divider, Image, Input, Radio, RadioGroup, Select, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import BackendURL from '../BackendURL'
 import "./Payment.css"
 const Payment = () => {
     const [cart, setCart] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:8080/cart`, {
+        fetch(`${BackendURL}/cart`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem("token")
+                'Authorization': localStorage.getItem("token"),
+                'user': localStorage.getItem("userID")
             }
         }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
     }, [])
@@ -158,6 +160,8 @@ const Payment = () => {
                         <Text>Need Help? 86555 00222</Text>
                     </Box>
                 </Box>
+                <Divider width='100%' margin='auto' />
+                <Text fontSize={'16px'} fontWeight='500' color={'green.500'}>Product will be deliverd on {Number(day)+3} {month}</Text>
                 <Divider width='100%' margin='auto' />
                 <Box className='pricedivcontainer'>
                     <Box className='pricesubdiv'>

@@ -3,25 +3,65 @@ import { useEffect } from "react";
 import { SimpleGrid, Image, Box, Text, Button } from "@chakra-ui/react";
 import "./productdetails.css";
 import delivery from "../Pages/delivery.png";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import BackendURL from "../BackendURL";
+
 const fourstar = "https://cdn-icons-png.flaticon.com/512/992/992000.png";
 const fivestar = "https://cdn-icons-png.flaticon.com/128/992/992001.png";
 const threestar = "https://cdn-icons-png.flaticon.com/128/991/991999.png";
 const twostar = "https://cdn-icons-png.flaticon.com/128/991/991998.png";
 const onestar = "https://cdn-icons-png.flaticon.com/128/991/991997.png";
 
+
 const Productdetails = () => {
   const [pro, setPro] = React.useState({});
   const params = useParams();
-  //   console.log(params);
-  const id = localStorage.getItem("product_id");
+
   useEffect(() => {
-    fetch(`http://localhost:8080/prod/productId/${params.id}`)
+    fetch(`${BackendURL}/prod/productId/${params.id}`)
       .then((res) => res.json())
       .then((res) => setPro(res.messg))
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [params.id]);
+  console.log(pro)
+  
   //   console.log(pro);
+
+  const handleAdd = async () => {
+    try {
+      fetch(`${BackendURL}/cart/additemtocart`, {
+        method: "POST",
+        body: JSON.stringify(pro),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      alert("Product added successfully");
+    } catch (err) {
+      alert("You cannot add product without Login");
+    }
+
+
+    const res = await fetch(`${BackendURL}/order/post`, {
+      method: "POST",
+      body: JSON.stringify(pro),
+      headers: {
+        'Content-Type': 'application/json',
+        "email": localStorage.getItem("email")
+      }
+    }).then((res) => res.json()).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    });
+
+
+  };
+
   let rating = "";
   if (pro.rating === 5) {
     rating = fivestar;
@@ -71,14 +111,14 @@ const Productdetails = () => {
         </Text>
         <SimpleGrid columns={[1, 2, 2, 2]} gap="8px" marginTop={"20px"}>
           <Box width={"100%"}>
-            <Button
+            <NavLink to="/cart"><Button
               className="cart_button"
               bg="#6600ff"
               _hover={{ bg: "#6600ff" }}
-              //   onClick={() => handleAdd(item._id)}
+              onClick={handleAdd}
             >
               Add To Cart
-            </Button>
+            </Button></NavLink>
           </Box>
           <Box width={"100%"}>
             <Button
