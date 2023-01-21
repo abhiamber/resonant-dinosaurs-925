@@ -1,62 +1,10 @@
-// const express = require("express")
-// const { authuser } = require('../middleware/cart.middleware');
-// const { CartModel } = require("../models/cart.model")
-// const cartRouter = express.Router()
-
-// cartRouter.use(authuser);
-// cartRouter.get("/", async (req, res) => {
-//     try {
-//         const data = await CartModel.find()
-//         res.send(data)
-//     }
-//     catch (err) {
-//         console.log("err")
-//         console.log(err)
-//     }
-// })
-
-// cartRouter.post("/additemtocart", async (req, res) => {
-//     const product = req.body;
-//     try {
-//         const products = new CartModel(product)
-//         await products.save()
-//         res.send(products)
-//     }
-//     catch (err) {
-//         console.log(err)
-//         console.log("Error while adding data to cart")
-//     }
-// })
-// cartRouter.delete("/delete/:id", async (req, res) => {
-//     const id = req.params.id
-//     try {
-//         await CartModel.findByIDAndDelete({ "_id": id })
-//         res.send("Product has been removed successfully")
-//     }
-//     catch (err) {
-//         console.log(err)
-//         console.log("Error occured while removing product")
-//     }
-// })
-
-// module.exports = { cartRouter }
-
-
-
-
-
-
-
-
 require("dotenv").config();
 const express = require("express");
 
 const app = express.Router();
 const jwt = require("jsonwebtoken");
 
-let ProductModel = require("../models/product.model");
 let CartModel = require("../models/cart.model");
-const UserModel = require("../models/user.model");
 
 // fetching cart items*********************
 
@@ -76,8 +24,6 @@ app.get("/fetchcartItem", async (req, res) => {
   });
   try {
     if (cartItem.length > 0) {
-      // cartItem = cartItem[0].products.populate("product");
-
       console.log(cartItem);
       return res.send(cartItem);
     } else {
@@ -96,14 +42,8 @@ app.post("/", async (req, res) => {
     return res.status(501).send("Not logged in")
   }
   token = jwt.decode(token, process.env.token_password);
-
   let userId = token.id;
-
   let cart = await CartModel.findOne({ userId });
-  // let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-  console.log(cart);
-  console.log("helllo");
-  // return;
   try {
     if (!cart) {
       let newCartItem = new CartModel({ userId, products: [{ productId }] });

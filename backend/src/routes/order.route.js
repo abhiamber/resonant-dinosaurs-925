@@ -1,58 +1,12 @@
-// const { Router } = require("express");
-// const OrderRouter = Router();
-// const { OrderModel } = require("../models/order.model");
-// const { validate } = require('../middleware/validate.middleware');
-
-
-
-// OrderRouter.post("/post", async (req, res) => {
-//     let { email } = req.headers;
-//     let { _id, name, brand } = req.body;
-//     try {
-//         const order = new OrderModel({
-//             userID: _id,
-//             name,
-//             brand,
-//             email
-//         });
-//         await order.save();
-//         res.send({ "msg": "Order saved successfully" })
-//     } catch (err) {
-//         console.log(err);
-//         res.send({ "msg": "Order not saved successfully" })
-//     }
-// });
-
-
-
-
-// OrderRouter.use(validate);
-// OrderRouter.get("/get", async (req, res) => {
-//     try {
-//         let order = await OrderModel.find();
-//         return res.status(201).send(order);
-//     } catch (e) {
-//         return res.send("Some thing went wrong");
-//     }
-// });
-
-
-
-// module.exports = { OrderRouter };
-
-
-const {validate} = require('../middleware/validate.middleware');
+const { validate } = require('../middleware/validate.middleware');
 const express = require("express");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-
 const OrderModel = require("../models/order.model");
-
 const app = express.Router();
 
-
-app.get("/getall", validate, async(req,res) => {
-    const {token} = req.headers;
+app.get("/getall", validate, async (req, res) => {
+  const { token } = req.headers;
   try {
     let delivered = await OrderModel.find().populate({
       path: "cartId",
@@ -60,22 +14,18 @@ app.get("/getall", validate, async(req,res) => {
     });
     return res.status(201).send({ delivered, Message: "OK" });
   } catch (e) {
-    return res.send("Some thing went wrong");
+    return res.send({ "msg": "Some thing went wrong" });
   }
-})
-// Get all the order  list  of delivered item *************
+});
 
+// Get all the order  list  of delivered item *************
 app.get("/getdeliveredorder", async (req, res) => {
   let { token } = req.headers;
-
-  // token = jwt.verify(token, process.env.token_password);
-
   try {
     let delivered = await OrderModel.find({ OrderDelivered: true }).populate({
       path: "cartId",
       populate: { path: "products", populate: "productId" },
     });
-
     return res.status(201).send({ delivered, Message: "OK" });
   } catch (e) {
     return res.send("Some thing went wrong");
@@ -83,12 +33,8 @@ app.get("/getdeliveredorder", async (req, res) => {
 });
 
 // Get list of Order Which is Not delivered
-
 app.get("/getnotdelivered", async (req, res) => {
   let { token } = req.headers;
-
-  // token = jwt.verify(token, process.env.token_password);
-
   try {
     let notDelivered = await OrderModel.find({
       OrderDelivered: false,
@@ -96,7 +42,6 @@ app.get("/getnotdelivered", async (req, res) => {
       path: "cartId",
       populate: { path: "products", populate: "productId" },
     });
-
     return res.status(201).send({ notDelivered, Message: "OK" });
   } catch (e) {
     return res.send("Some thing went wrong");
@@ -113,9 +58,9 @@ app.get("/getnotdeliveredofuser/", async (req, res) => {
 
   try {
     let notDelivered = await OrderModel.find({
-    //   OrderDelivered: false ,
+      //   OrderDelivered: false ,
       userId,
-    //   _id: id,
+      //   _id: id,
     }).populate({
       path: "cartId",
       populate: { path: "products", populate: "productId" },
@@ -165,7 +110,7 @@ app.post("/", async (req, res) => {
 
 //     change the status of the item
 
-app.post("/changestatus", async (req, res) => {
+app.post("/changestatus", validate, async (req, res) => {
   const { status, orderId } = req.body;
   try {
     if (status === "Delivered") {
@@ -180,13 +125,11 @@ app.post("/changestatus", async (req, res) => {
       { _id: orderId },
       { $set: { currentStatus: status } }
     );
-
-    return status(201).send({"msg":"Status of order has been changed", status});
+    return res.send({ "msg": "Status of order has been changed", status });
   } catch (e) {
     return res.send(e.message);
   }
 });
-
 
 
 module.exports = app;

@@ -42,6 +42,28 @@ const Admin = () => {
             })
     };
 
+    const handleChangeStatus = async (id) => {
+        if (!status) {
+            return alert("Please fill correct Status");
+        };
+        let res = await fetch(`${BackendURL}/order/changestatus`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "email": localStorage.getItem("email"),
+                "token": localStorage.getItem("token")
+            },
+            body: JSON.stringify({ status, orderId: id })
+        }).then((res) => res.json()).then((res) => {
+            console.log(res);
+            getOrders();
+            alert(`${res.msg}`);
+        }).catch((err) => {
+            console.log(err)
+        });
+        setStatus("");
+    };
+
     // console.log(orders);
 
     const handleFilter = (e) => {
@@ -132,29 +154,7 @@ const Admin = () => {
         });
     };
 
-    const handleChangeStatus = async (id) => {
-        if (!status) {
-            return alert("Please fill correct Status")
-        }
-        let res = await fetch(`${BackendURL}/order/changestatus`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "email": localStorage.getItem("email"),
-                "token": localStorage.getItem("token")
-            },
-            body: JSON.stringify({ status, orderId: id })
-        }).then((res) => res.json()).then((res) => {
-            console.log(res);
-            // getUser(page);
-            getOrders();
-            alert(`${res.msg}`)
-        }).catch((err) => {
-            console.log(err)
-        });
-
-    }
-
+    console.log(orders);
     const { name, email, address } = state;
     return (
         <>
@@ -287,18 +287,15 @@ const Admin = () => {
                 <Button variant={"outline"} color="green" isDisabled={page >= 5} onClick={() => handlePage(1)}>NEXT</Button>
             </Box>
 
-
-
             <hr />
+
             <Heading textAlign={"left"} m={"2% 0"}>Orders Details</Heading>
             <Box m={"2% 0"}>
                 <Table variant={"striped"}>
                     <Thead fontSize={"23px"} color="blue">
                         <Tr>
-                            <Td>Product Name</Td>
                             <Td>Product Brand</Td>
                             <Td>UserID</Td>
-                            <Td>By</Td>
                             <Td>When</Td>
                             <Td>Status</Td>
                             <Td>Change Status</Td>
@@ -307,41 +304,18 @@ const Admin = () => {
                     <Tbody>
                         {orders ? orders.map((ele) =>
                             <Tr key={ele._id}>
-                                <Td>{"ele.name"}</Td>
-                                <Td>{"ele.brand"}</Td>
-                                <Td>{"ele.userID"}</Td>
-                                <Td>{"ele.email"}</Td>
-                                <Td>{"ele.createdAt"}</Td>
+                                <Td>{ele.cartId.products.map((p) => p.productId.brand)}</Td>
+                                <Td>{ele.userId}</Td>
+                                <Td>{ele.createdAt}</Td>
                                 <Td>{ele.currentStatus}</Td>
                                 <Td>
-                                    <Button onClick={onOpen}>Change Status</Button>
-                                    <Modal isOpen={isOpen} onClose={onClose}>
-
-                                        <ModalOverlay />
-                                        <ModalContent>
-                                            <ModalHeader>Modal Title</ModalHeader>
-                                            <ModalCloseButton />
-                                            <ModalBody>
-                                                <Input _placeholder={"Status"} onChange={(e) => setStatus(e.target.value)}></Input>
-                                                <Button onClick={() => { onClose(); handleChangeStatus(ele._id) }}>submit</Button>
-                                            </ModalBody>
-
-                                            <ModalFooter>
-                                                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                                    Close
-                                                </Button>
-                                            </ModalFooter>
-                                        </ModalContent>
-                                    </Modal></Td>
+                                    <Input value={status} variant={"outline"} w="200px" placeholder={"Enter Status"} onChange={(e) => setStatus(e.target.value)}></Input>
+                                    <Button onClick={() => { handleChangeStatus(ele._id) }} bg="blue" color="black" variant={"outline"}>Submit</Button>
+                                </Td>
                             </Tr>
                         ) : <Heading>No Order Till Now</Heading>}
                     </Tbody>
                 </Table>
-
-
-
-
-
             </Box>
         </>
     );
