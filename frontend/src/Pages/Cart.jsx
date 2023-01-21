@@ -14,7 +14,7 @@ import {
     useDisclosure,
     FormControl,
     FormLabel,
-    Input,
+    Input
 } from "@chakra-ui/react"
 import { NavLink } from 'react-router-dom'
 
@@ -34,7 +34,7 @@ const Cart = () => {
                 "user": localStorage.getItem("userID")
             }
         }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
-    }, [])
+    }, []);
     let total = Math.round(cart.reduce((a, c) => a + c.price, 0))
     total = total * 75;
     var date = new Date()

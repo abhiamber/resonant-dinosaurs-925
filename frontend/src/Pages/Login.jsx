@@ -36,7 +36,7 @@ export default function Login() {
         document.getElementById("signInDiv").hidden = true
     };
     useEffect(() => {
-        /*global google */
+        /* global google */
         google.accounts.id.initialize({
             client_id: "514340861987-f7tbdfd063bbb72d0452dm5je7onj1vj.apps.googleusercontent.com",
             callback: handleCallbackResponse,

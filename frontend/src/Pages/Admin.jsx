@@ -13,6 +13,7 @@ const Admin = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [id, setID] = useState("");
     const [page, setPage] = useState(1);
+    const [orders, setOrders] = useState([]);
     const [state, setState] = useState({
         name: "",
         email: "",
@@ -21,7 +22,26 @@ const Admin = () => {
 
     useEffect(() => {
         getUser(page);
+        getOrders();
     }, [page]);
+
+
+
+    const getOrders = async () => {
+        let res = await fetch(`${BackendURL}/order/get`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "email": localStorage.getItem("email")
+            }
+        }).then((res) => res.json())
+            .then((res) => {
+                setOrders(res);
+            }).catch((err) => {
+                console.log(err)
+            })
+    };
+
 
     const handleFilter = (e) => {
         const { value } = e.target;
@@ -114,13 +134,15 @@ const Admin = () => {
     const { name, email, address } = state;
     return (
         <>
-            <Heading textAlign={"center"}>Admin Panel</Heading>
+            <Heading textAlign={"center"} m={"2% 0"}>Admin Panel</Heading>
             {loading && <Spinner color='red' />}
             {error && <Alert status='error'>
                 <AlertIcon />
                 Somthing went wrong!
             </Alert>}
+            <hr />
 
+            <Heading textAlign={"left"} m={"2% 0"}>Users Details</Heading>
             <Box m={"1% 0"} display={"flex"} justifyContent="center" alignItems={"center"} gap="10px">
                 <Input w={{ base: "15%", sm: "31%", lg: "15%" }} placeholder='Search Username' onChange={handleFilter}></Input>
                 <Input w={{ base: "15%", sm: "30%", lg: "15%" }} placeholder='Search Address' onChange={handleFilter1}></Input>
@@ -152,8 +174,6 @@ const Admin = () => {
                     </Tbody>
                 </Table>
             </Box>
-
-
             <Box>
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
@@ -237,13 +257,40 @@ const Admin = () => {
             </Box>
 
 
-            <Box display={"flex"} alignItems="center" justifyContent={"center"} mt="1%" gap={"5px"}>
+            <Box display={"flex"} alignItems="center" justifyContent={"center"} m="1% 0" gap={"5px"}>
                 <Button variant={"outline"} color="green" isDisabled={page <= 1} onClick={() => handlePage(-1)}>PRE</Button>
                 <Button variant={"outline"} color="red" isDisabled={true}>{page}</Button>
                 <Button variant={"outline"} color="green" isDisabled={page >= 5} onClick={() => handlePage(1)}>NEXT</Button>
             </Box>
 
 
+
+            <hr />
+            <Heading textAlign={"left"} m={"2% 0"}>Orders Details</Heading>
+            <Box m={"2% 0"}>
+                <Table variant={"striped"}>
+                    <Thead fontSize={"23px"} color="blue">
+                        <Tr>
+                            <Td>Product Name</Td>
+                            <Td>Product Brand</Td>
+                            <Td>UserID</Td>
+                            <Td>By</Td>
+                            <Td>When</Td>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {orders ? orders.map((ele) =>
+                            <Tr key={ele._id}>
+                                <Td>{ele.name}</Td>
+                                <Td>{ele.brand}</Td>
+                                <Td>{ele.userID}</Td>
+                                <Td>{ele.email}</Td>
+                                <Td>{ele.createdAt}</Td>
+                            </Tr>
+                        ) : <Heading>No Order Till Now</Heading>}
+                    </Tbody>
+                </Table>
+            </Box>
         </>
     );
 }
