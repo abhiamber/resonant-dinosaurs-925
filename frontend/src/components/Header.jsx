@@ -18,14 +18,17 @@ const Header = () => {
       alignItems="center"
       gap="2"
       marginBottom={"10px"}
+      ml="32px"
     >
       <Spacer />
       <ButtonGroup
         cursor={"pointer"}
         gap="2"
         fontWeight={"light"}
-        paddingRight="50px"
+        mr="32px"
         marginTop={"10px"}
+        display={"flex"}
+        flexWrap="wrap"
       >
         {" "}
         <Icon as={FaMobileAlt} fontSize={"25px"} />

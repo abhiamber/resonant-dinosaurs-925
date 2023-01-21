@@ -6,6 +6,7 @@ import {
   Grid,
   GridItem,
   Image,
+  SimpleGrid,
   Skeleton,
   Stack,
   Text,
@@ -119,31 +120,36 @@ const Product = () => {
       <Box>
         <ProductFunctionality sortFilterFunc={sortFilterFunc} />
       </Box>{" "}
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        p="38px"
+      <SimpleGrid
+        minChildWidth="230px"
+        spacing="40px"
+        w="95%"
         m="auto"
-        //   justifyContent={"space-evenly"}
-        justifyItems={"center"}
-        gap={6}
+        mt="30px"
       >
         {mapData &&
           mapData.map((prod) => {
             return (
-              <GridItem
-                w="100%"
+              <Box
                 key={prod._id}
+                border="1px"
+                borderColor={"gray.200"}
                 m="auto"
-                boxShadow="xs"
-                p="6"
-                rounded="md"
-                // textAlign={"center"}
+                p="3"
+                w="100%"
                 cursor="pointer"
-                height="100%"
+                height="auto"
+                boxShadow={` rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;`}
               >
                 <Link to={`/productmain/${prod._id}`}>
                   {" "}
-                  <Image src={prod.image_link} alt="naruto" w="100%" h="70%" />
+                  <Image
+                    src={prod.image_link}
+                    alt="naruto"
+                    w="100%"
+                    m="auto"
+                    h="200px"
+                  />
                 </Link>
                 <Text fontSize="15px" fontWeight="600" textAlign={"left"}>
                   {prod.name}
@@ -160,17 +166,17 @@ const Product = () => {
                   mt="3px"
                   color={"white"}
                   fontWeight="light"
-                  // textAlign={"left  "}
+                  textAlign={"center"}
                   _hover={{ bg: "#fd1d65" }}
                 >
                   {" "}
                   {prod.rating}{" "}
                   <StarIcon color={"white"} pl="5px" fontSize={"18px"} />
                 </Button>
-              </GridItem>
+              </Box>
             );
           })}
-      </Grid>
+      </SimpleGrid>
       <Box>
         <Button
           onClick={() => {
