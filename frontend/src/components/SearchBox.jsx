@@ -13,6 +13,7 @@ import {
   PopoverArrow,
   PopoverHeader,
   PopoverBody,
+  Heading,
   // useColorMode,
 } from "@chakra-ui/react";
 
@@ -41,7 +42,7 @@ import {
 } from "../redux/prod/prod.action";
 
 const SearchBox = () => {
- const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -156,8 +157,9 @@ const SearchBox = () => {
                     <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
                     <Flex mx="10px" alignItems="center" justifyContent="space-between" flexDirection={"column"}>
                       {user ? <Text color={"green"} fontSize="20px"><Link to="#">{user.user}</Link></Text> : <Button color={"black"} variant="outline" w="150px" bg="blue"><Link to="/login">Sign in</Link></Button>}
-                      {user ? <Text fontSize={"17px"} color={"red"}><Link>Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
-                      {user ? <Text color={"red"}><Link onClick={logout}>Logout</Link></Text> : <Text fontSize={"20px"} color={"red"}><Link to="/register">Register Now.</Link></Text>}
+                      {user ? <Text fontSize={"17px"} color={"red"}><Link to="#">Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
+                      {user ? <Text color={"red"}><Link to="/" onClick={logout} fontSize={"23px"}>Logout</Link></Text> : <Text fontSize={"20px"} color={"red"}><Link to="/register">Register Now.</Link></Text>}
+                      {user && localStorage.getItem("email") === "pushpendra1697@gmail.com" ? <Text fontSize={"23px"}> <Link to="/admin">Admin</Link> </Text> : <Text fontSize={"23px"}> <Link to="/admin">User</Link> </Text>}
                     </Flex>
                     <Box h="1px" bg="black" w="70%" m="auto"></Box>
                   </PopoverHeader>
