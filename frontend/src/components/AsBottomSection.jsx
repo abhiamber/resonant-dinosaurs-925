@@ -10,7 +10,7 @@ import {
 export default function AsBottomSection() {
   return (
     <>
-      <SimpleGrid columns={3} mt="50px">
+      <SimpleGrid columns={[1,1,3]} mt="50px">
         <VStack>
           <Box border="1px solid gray" pl="25%" pr="25%" pt="20px" pb="20px">
             <Image
@@ -76,7 +76,7 @@ export default function AsBottomSection() {
           </Box>
         </VStack>
       </SimpleGrid>
-      <SimpleGrid columns={2} backgroundColor="rgba(245,246,247,1)" pt="40px" pb="40px">
+      <SimpleGrid columns={[1,1,2]} backgroundColor="rgba(245,246,247,1)" pt="40px" pb="40px">
         <VStack>
           <Box>
             <Heading as="h4" fontSize="24px" textAlign="left" fontWeight="400" mb="15px">
