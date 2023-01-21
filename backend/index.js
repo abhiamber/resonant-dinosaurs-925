@@ -7,9 +7,10 @@ const connect = require("./src/config/db");
 const UserRoutes = require("./src/routes/user.route");
 const LoginRoute = require("./src/routes/login.route");
 const SignupRotue = require("./src/routes/signup.route");
-const { cartRouter } = require("./src/routes/cart.route");
+// const { cartRouter } = require("./src/routes/cart.route");
+const CartRouter = require('./src/routes/cart.route');
 const ProdRoute = require("./src/routes/prod.route");
-const { OrderRouter } = require('./src/routes/order.route');
+const OrderRouter  = require('./src/routes/order.route');
 
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
@@ -30,7 +31,7 @@ app.use("/login", LoginRoute);
 app.use("/user", UserRoutes);
 app.use("/prod", ProdRoute);
 app.use('/order', OrderRouter);
-app.use("/cart", cartRouter);
+app.use("/cart", CartRouter);
 
 httpServer.listen(PORT, async () => {
   try {

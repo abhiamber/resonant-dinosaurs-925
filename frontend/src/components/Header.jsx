@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { Icon } from "@chakra-ui/react";
 import { FaMobileAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -34,7 +35,7 @@ const Header = () => {
         <Icon as={FaMobileAlt} fontSize={"25px"} />
         <Text> DOWNLOAD APP</Text>
         <Text>| SUPPORT</Text>
-        <Text>| TRACK ORDER</Text>
+        <Text><Link to={"/order"}>| TRACK ORDER</Link></Text>
       </ButtonGroup>
     </Flex>
   );

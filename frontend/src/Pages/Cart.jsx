@@ -27,15 +27,19 @@ const Cart = () => {
 
 
     useEffect(() => {
-        fetch(`${BackendURL}/cart`, {
+        fetch(`${BackendURL}/cart/fetchcartItem`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem("token"),
-                "user": localStorage.getItem("userID")
+                token: localStorage.getItem("token"),
+                // "user": localStorage.getItem("userID")
             }
-        }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
+        }).then(res => res.json()).then(res =>{
+            setCart(res[0].products);
+            localStorage.setItem("cartItem", res[0]._id);
+        }).catch(err => console.log(err))
     }, []);
-    let total = Math.round(cart.reduce((a, c) => a + c.price, 0))
+
+    let total = Math.round(cart.reduce((a, c) => a + c.productId.price, 0))
     total = total * 75;
     var date = new Date()
     var month = date.toLocaleString("default", { month: "short" });
@@ -46,7 +50,7 @@ const Cart = () => {
                 <Text textAlign={'left'} fontSize='18px' color={'black'} fontWeight='bold'>MY Cart({cart.length})</Text>
                 {
                     cart ? cart.map((item) => (
-                        <Cartitems key={item._id} pro_id={item._id} image_link={item.image_link} name={item.name} quantity={item.quantity} price={item.price} />
+                        <Cartitems key={item._id} pro_id={item.productId._id} image_link={item.productId.image_link} name={item.productId.name} quantity={item.productId.quantity} price={item.productId.price} />
                     )) : <h1>Null</h1>
                 }
             </Box>

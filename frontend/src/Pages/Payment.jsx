@@ -6,14 +6,27 @@ const Payment = () => {
     const [cart, setCart] = useState([])
 
     useEffect(() => {
-        fetch(`${BackendURL}/cart`, {
+        // fetch(`${BackendURL}/cart`, {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': localStorage.getItem("token"),
+        //         'user': localStorage.getItem("userID")
+        //     }
+        // }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
+    }, []);
+
+
+    const handleOrder = () => {
+        fetch(`${BackendURL}/order/`, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem("token"),
-                'user': localStorage.getItem("userID")
-            }
-        }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
-    }, [])
+                'token': localStorage.getItem("token"),
+            },
+            body: JSON.stringify({ priceTotal: 20, paymentMethod: "case", DeliveryAdress: "abcd", cartId: localStorage.getItem("cartItem") })
+        }).then(res => res.json()).then(res => console.log(res) ).catch(err => console.log(err))
+    }
+
     let total = Math.round(cart.reduce((a, c) => a + c.price, 0))
     total = total * 75;
     var date = new Date()
@@ -38,7 +51,7 @@ const Payment = () => {
                             <Input width={'45%'} placeholder='Expiry YY' />
                         </Box>
                         <Box>
-                            <Button bg={'#e40980'} width='40%' borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mb={5}>
+                            <Button bg={'#e40980'} width='40%' borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mb={5} onClick={handleOrder}>
                                 PAY ₹{total}
                             </Button>
                         </Box>
@@ -161,7 +174,7 @@ const Payment = () => {
                     </Box>
                 </Box>
                 <Divider width='100%' margin='auto' />
-                <Text fontSize={'16px'} fontWeight='500' color={'green.500'}>Product will be deliverd on {Number(day)+3} {month}</Text>
+                <Text fontSize={'16px'} fontWeight='500' color={'green.500'}>Product will be deliverd on {Number(day) + 3} {month}</Text>
                 <Divider width='100%' margin='auto' />
                 <Box className='pricedivcontainer'>
                     <Box className='pricesubdiv'>
