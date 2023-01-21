@@ -79,9 +79,7 @@ export default function Login() {
                 }
                 if (data.status === "OK") {
                     alert("Login Successful");
-
                     login(data);
-                    // setUser(data.token);
                     localStorage.setItem("token",data.token)
                     navigate(redirectPath, { replace: true });
                 }
