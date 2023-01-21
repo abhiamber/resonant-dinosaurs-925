@@ -14,50 +14,69 @@ export default function AsCatSlider() {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 426,
+        settings: {
+          slidesToShow: 3,
+          centerMode: false
+        }, 
+        breakpoint: 913,
+        settings: {
+          slidesToShow: 3,
+          centerMode: false
+        }, 
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          centerMode: false
+        }, 
+      }
+    ]
   };
 
   return (
-    <Box mt="50px" pl="120px" pr="120px">
+    <Box mt="50px" pl={[null,null,"120px"]} pr={[null,null,"120px"]}>
       <Slider {...settings}>
         <Box>
           <Image
             w="250px"
-            h="370px"
+            h={["170px","270px","370px"]}
             src="https://media6.ppl-media.com/tr:dpr-2/mediafiles/ecomm/misc/1669991841_face-creams.jpg"
           />
         </Box>
         <Box>
           <Image
             w="250px"
-            h="370px"
+            h={["170px","270px","370px"]}
             src="https://media6.ppl-media.com/tr:dpr-2/mediafiles/ecomm/misc/1669991841_face-serums.jpg"
           />
         </Box>
         <Box>
           <Image
             w="250px"
-            h="370px"
+            h={["170px","270px","370px"]}
             src="https://media6.ppl-media.com/tr:dpr-2/mediafiles/ecomm/misc/1669991839_lipsticks.jpg"
           />
         </Box>
         <Box>
           <Image
             w="250px"
-            h="370px"
+            h={["170px","270px","370px"]}
             src="https://media6.ppl-media.com/tr:dpr-2/mediafiles/ecomm/misc/1669991840_foundations.jpg"
           />
         </Box>
         <Box>
           <Image
             w="250px"
-            h="370px"
+            h={["170px","270px","370px"]}
             src="https://media6.ppl-media.com/tr:dpr-2/mediafiles/ecomm/misc/1669991842_eyeshadows.jpg"
           />
         </Box>
         <Box>
           <Image
             w="250px"
-            h="370px"
+            h={["170px","270px","370px"]}
             src="https://media6.ppl-media.com/tr:dpr-2/mediafiles/ecomm/misc/1669991842_eyeliners.jpg"
           />
         </Box>

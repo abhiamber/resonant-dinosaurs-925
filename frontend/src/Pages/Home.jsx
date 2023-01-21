@@ -7,6 +7,7 @@ import AsCatSlider from "../components/AsCatSlider";
 import AsCatStores from "../components/AsCatStores";
 import AsDealGallery from "../components/AsDealGallery";
 import AsDeals from "../components/AsDeals";
+import AsFooter from "../components/AsFooter";
 import AsFrGift from "../components/AsFrGift";
 import AsImgGallery from "../components/AsImgGallery";
 import AsSpLooks from "../components/AsSpLooks";
@@ -28,6 +29,7 @@ export default function Home () {
             <AsBigBrand />
             <AsBigDeals />
             <AsBottomSection />
+            <AsFooter />
         </>
     )
 }
