@@ -21,7 +21,7 @@ const ProductFunctionality = ({ sortFilterFunc }) => {
 
   return (
     <Box mt="20px">
-      <Flex justifyContent={"space-evenly"}>
+      <Flex justifyContent={"space-around"}>
         {" "}
         <Box>
           <Button>Sort</Button>

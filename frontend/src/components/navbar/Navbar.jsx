@@ -18,11 +18,10 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Spacer,
-  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import NavItem from "./NavbarItem/NavItem";
 import logo from "../../image/P.png";
 import { CiFaceSmile, CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
@@ -34,12 +33,11 @@ import {
   // GetToQueryProduct,
   GetToSearchQueryProduct,
 } from "../../redux/prod/prod.action";
+import Navmenu from "./NavbarItem/Navmenu";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-    const { user, logout } = useContext(AuthContext);
-
-
+  const { user, logout } = useContext(AuthContext);
 
   const btnRef = React.useRef();
 
@@ -54,42 +52,41 @@ const Navbar = () => {
     }
 
     dispatch(GetToSearchQueryProduct(query));
-    
+
     Navigate("/productmain", { state: { q: "S", query } });
     // console.log(query);
   };
 
   return (
     <Flex
-      w="100%"
       m="auto"
+      // ml="12px"
       pl="18px"
       pr="18px"
       position={"sticky"}
       top="0px"
       zIndex={999}
       bg="white"
-      boxShadow="base"
-      // p="6"
-      rounded="md"
       mb="5px"
-      // bg="white"
     >
-      <Box p="4">
-        <Link to="/">
+      <Box p="4" w="70px">
+        <Link to="/" w="70px">
           <Image
-            boxSize="60px"
+            boxSize="50px"
             borderRadius={"5px"}
-            w="80px"
             h="40px"
             objectFit="cover"
             src={logo}
             alt="logo"
+            maxWidth="90px"
           />
         </Link>
       </Box>
-      <Spacer />
-      <Box p="4">
+      <Box
+        p="4"
+        ml="80px"
+        display={{ lg: "block", md: "none", sm: "none", base: "none" }}
+      >
         <NavItem />
       </Box>
 
@@ -99,7 +96,8 @@ const Navbar = () => {
           <Box>
             <Flex>
               {" "}
-              <Button
+              <Text
+                cursor={"pointer"}
                 ref={btnRef}
                 colorScheme="white"
                 bg={"white"}
@@ -109,7 +107,7 @@ const Navbar = () => {
                 <Text color={"black"} fontWeight="light" fontSize="40px">
                   <CiSearch />
                 </Text>
-              </Button>
+              </Text>
               <Drawer
                 isOpen={isOpen}
                 placement="top"
@@ -156,32 +154,62 @@ const Navbar = () => {
             <CiHeart />
           </Box>
 
-
           <Box color={"black"} fontWeight="light" fontSize="40px" mt="-1.5">
-              <Popover trigger="hover">
-                <PopoverTrigger>
-                  <Box className={"blackHover"} p="7px">
-                    <CiFaceSmile />
-                  </Box>
-                </PopoverTrigger>
-                <PopoverContent w="15vw">
-                  <PopoverArrow />
-                  <PopoverHeader>
-                    <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
-                    <Flex mx="10px" alignItems="center" justifyContent="space-between" flexDirection={"column"}>
-                      {user ? <Text color={"green"} fontSize="20px"><Link to="#">{user.user}</Link></Text> : <Button color={"black"} variant="outline" w="150px" bg="blue"><Link to="/login">Sign in</Link></Button>}
-                      {user ? <Text fontSize={"17px"} color={"red"}><Link>Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
-                      {user ? <Text color={"red"}><Link onClick={logout}>Logout</Link></Text> : <Text fontSize={"20px"} color={"red"}><Link to="/register">Register Now.</Link></Text>}
-                    </Flex>
-                    <Box h="1px" bg="black" w="70%" m="auto"></Box>
-                  </PopoverHeader>
-                  <PopoverBody>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
-            </Box>
-
-
+            <Popover trigger="hover">
+              <PopoverTrigger>
+                <Box className={"blackHover"} p="7px">
+                  <CiFaceSmile />
+                </Box>
+              </PopoverTrigger>
+              <PopoverContent w="15vw">
+                <PopoverArrow />
+                <PopoverHeader>
+                  <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
+                  <Flex
+                    mx="10px"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    flexDirection={"column"}
+                  >
+                    {user ? (
+                      <Text color={"green"} fontSize="20px">
+                        <Link to="#">{user.user}</Link>
+                      </Text>
+                    ) : (
+                      <Button
+                        color={"black"}
+                        variant="outline"
+                        w="150px"
+                        bg="blue"
+                      >
+                        <Link to="/login">Sign in</Link>
+                      </Button>
+                    )}
+                    {user ? (
+                      <Text fontSize={"17px"} color={"red"}>
+                        <Link>Your Order</Link>
+                      </Text>
+                    ) : (
+                      <Text fontSize={"17px"} color={"red"}>
+                        <Link to="/register">New Customer?</Link>
+                      </Text>
+                    )}
+                    {user ? (
+                      <Text color={"red"}>
+                        <Link onClick={logout}>Logout</Link>
+                      </Text>
+                    ) : (
+                      <Text fontSize={"20px"} color={"red"}>
+                        <Link to="/register">Register Now.</Link>
+                      </Text>
+                    )}
+                  </Flex>
+                  <Box h="1px" bg="black" w="70%" m="auto"></Box>
+                </PopoverHeader>
+                <PopoverBody></PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </Box>
 
           <Box
             color={"black"}
@@ -194,6 +222,13 @@ const Navbar = () => {
             </Link>
           </Box>
         </Flex>
+      </Box>
+      <Spacer />
+      <Box
+        p="4"
+        display={{ lg: "none", md: "none", sm: "block", base: "block" }}
+      >
+        <Navmenu />
       </Box>
     </Flex>
   );

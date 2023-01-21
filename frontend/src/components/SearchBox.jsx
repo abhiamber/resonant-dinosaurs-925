@@ -39,9 +39,10 @@ import {
   // GetToQueryProduct,
   GetToSearchQueryProduct,
 } from "../redux/prod/prod.action";
+import Navbar from "./navbar/Navbar";
 
 const SearchBox = () => {
- const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -59,9 +60,12 @@ const SearchBox = () => {
     // console.log(query);
   };
 
-
   return (
-    <Box pt="5px" ml="38px">
+    <Box
+      pt="5px"
+      ml="38px"
+      display={{ sm: "none", base: "none", md: "block", lg: "block" }}
+    >
       <Flex p="3px">
         <Box h="10">
           <Flex>
@@ -135,18 +139,16 @@ const SearchBox = () => {
           </Link>
         </Box>
         <Spacer />
-        <Box w="12.85%" h="10" pl="10px">
+        <Box mr="20px" h="10">
           <Flex>
             <Box color={"black"} fontWeight="light" fontSize="40px">
               <CiHeart />
             </Box>
 
-
-
-            <Box color={"black"} fontWeight="light" fontSize="40px" mt="-1.5">
+            <Box color={"black"} fontWeight="light" fontSize="40px">
               <Popover trigger="hover">
                 <PopoverTrigger>
-                  <Box className={"blackHover"} p="7px">
+                  <Box className={"blackHover"}>
                     <CiFaceSmile />
                   </Box>
                 </PopoverTrigger>
@@ -154,22 +156,52 @@ const SearchBox = () => {
                   <PopoverArrow />
                   <PopoverHeader>
                     <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
-                    <Flex mx="10px" alignItems="center" justifyContent="space-between" flexDirection={"column"}>
-                      {user ? <Text color={"green"} fontSize="20px"><Link to="#">{user.user}</Link></Text> : <Button color={"black"} variant="outline" w="150px" bg="blue"><Link to="/login">Sign in</Link></Button>}
-                      {user ? <Text fontSize={"17px"} color={"red"}><Link>Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
-                      {user ? <Text color={"red"}><Link onClick={logout}>Logout</Link></Text> : <Text fontSize={"20px"} color={"red"}><Link to="/register">Register Now.</Link></Text>}
+                    <Flex
+                      mx="10px"
+                      alignItems="center"
+                      textAlign={"center"}
+                      justifyContent="space-between"
+                      flexDirection={"column"}
+                    >
+                      {user ? (
+                        <Text color={"green"} fontSize="20px">
+                          <Link to="#">{user.user}</Link>
+                        </Text>
+                      ) : (
+                        <Button
+                          color={"black"}
+                          variant="outline"
+                          w="150px"
+                          bg="blue"
+                        >
+                          <Link to="/login">Sign in</Link>
+                        </Button>
+                      )}
+                      {user ? (
+                        <Text fontSize={"17px"} color={"red"}>
+                          <Link>Your Order</Link>
+                        </Text>
+                      ) : (
+                        <Text fontSize={"17px"} color={"red"}>
+                          <Link to="/register">New Customer?</Link>
+                        </Text>
+                      )}
+                      {user ? (
+                        <Text color={"red"}>
+                          <Link onClick={logout}>Logout</Link>
+                        </Text>
+                      ) : (
+                        <Text fontSize={"20px"} color={"red"}>
+                          <Link to="/register">Register Now.</Link>
+                        </Text>
+                      )}
                     </Flex>
                     <Box h="1px" bg="black" w="70%" m="auto"></Box>
                   </PopoverHeader>
-                  <PopoverBody>
-                  </PopoverBody>
+                  <PopoverBody></PopoverBody>
                 </PopoverContent>
               </Popover>
             </Box>
-
-
-
-
 
             <Box color={"black"} fontWeight="light" fontSize="40px">
               <Link to="/cart">

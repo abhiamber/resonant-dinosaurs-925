@@ -26,14 +26,18 @@ function App() {
         <CartContextProvider>
           {scrolled ? (
             <Navbar />
+            
           ) : (
             <Box>
               <Header />
               <hr />
+              <Box display={{ md: "none", lg: "none", xl: "none" }}>
+                <Navbar />
+              </Box>
               <SearchBox />
             </Box>
-          )} 
-          <AllRoutes /> 
+          )}
+          <AllRoutes />
         </CartContextProvider>
       </SearchContextProvider>
     </div>

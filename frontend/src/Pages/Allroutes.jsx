@@ -7,11 +7,9 @@ import Login from "./Login";
 
 import Productdetails from "./Productdetails";
 
-
 import Register from "./Register";
-import ProductMain from "./ProductMain"
+import ProductMain from "./ProductMain";
 export default function AllRoutes() {
-
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -23,5 +21,4 @@ export default function AllRoutes() {
       <Route path="/cart" element={<Cart />} />
     </Routes>
   );
-
 }
