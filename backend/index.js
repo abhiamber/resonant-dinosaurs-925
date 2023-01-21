@@ -9,7 +9,7 @@ const LoginRoute = require("./src/routes/login.route");
 const SignupRotue = require("./src/routes/signup.route");
 const { cartRouter } = require("./src/routes/cart.route");
 const ProdRoute = require("./src/routes/prod.route");
-const OrderRouter = require('./src/routes/order.route');
+const { OrderRouter } = require('./src/routes/order.route');
 
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;

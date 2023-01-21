@@ -14,8 +14,7 @@ import {
     FormControl,
     FormLabel,
     Input,
-} from "@chakra-ui/react"
-
+} from "@chakra-ui/react";
 const Cart = () => {
     const [cart, setCart] = useState([])
     const [pin, setPin] = useState("")
@@ -29,7 +28,7 @@ const Cart = () => {
                 'Authorization': localStorage.getItem("token")
             }
         }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
-    }, [])
+    }, []);
     let total = Math.round(cart.reduce((a, c) => a + c.price, 0))
     total = total * 75;
     var date = new Date()
