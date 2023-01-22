@@ -294,7 +294,6 @@ const Admin = () => {
                 <Table variant={"striped"}>
                     <Thead fontSize={"23px"} color="blue">
                         <Tr>
-                            <Td>Product Brand</Td>
                             <Td>UserID</Td>
                             <Td>When</Td>
                             <Td>Status</Td>
@@ -304,7 +303,6 @@ const Admin = () => {
                     <Tbody>
                         {orders ? orders.map((ele) =>
                             <Tr key={ele._id}>
-                                <Td>{ele.cartId.products.map((p) => p.productId.brand)}</Td>
                                 <Td>{ele.userId}</Td>
                                 <Td>{ele.createdAt}</Td>
                                 <Td>{ele.currentStatus}</Td>

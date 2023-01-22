@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Cart.css"
-import Cartitems from '../Components/Cartitems'
+import Cartitems from '../components/Cartitems'
 import BackendURL from '../BackendURL'
 import {
     Box, SimpleGrid, Image, Text, Divider, Button,
@@ -27,14 +27,19 @@ const Cart = () => {
 
 
     useEffect(() => {
+        let p = localStorage.getItem("token");
+        if (p === null) {
+            p = "Pushpendra Singh"
+        }
         fetch(`${BackendURL}/cart/fetchcartItem`, {
             headers: {
                 'Content-Type': 'application/json',
-                token: localStorage.getItem("token"),
+                token: p,
             }
-        }).then(res => res.json()).then(res =>{
+        }).then(res => res.json()).then(res => {
             setCart(res[0].products);
-            localStorage.setItem("uproid",res[0]._id)
+            console.log(res)
+            localStorage.setItem("uproid", res[0]._id)
             localStorage.setItem("cartItem", res[0]._id);
         }).catch(err => console.log(err))
     }, []);
@@ -107,17 +112,17 @@ const Cart = () => {
                             <ModalBody textAlign={'left'} pb={6} display='flex' flexDirection={'column'} gap='10px'>
                                 <FormControl isRequired>
                                     <FormLabel mt={'5px'}>Name *</FormLabel>
-                                    <Input ref={initialRef} type='text'/>
+                                    <Input ref={initialRef} type='text' />
                                     <FormLabel mt={'5px'}>Pincode *</FormLabel>
                                     <Input type={'number'} />
                                     <FormLabel mt={'5px'}>Address *</FormLabel>
-                                    <Input type={'text'}/>
+                                    <Input type={'text'} />
                                     <FormLabel mt={'5px'}>Landmark </FormLabel>
-                                    <Input type='text'/>
+                                    <Input type='text' />
                                     <FormLabel mt={'5px'}>City *</FormLabel>
-                                    <Input type='text'/>
+                                    <Input type='text' />
                                     <FormLabel mt={'5px'}>State *</FormLabel>
-                                    <Input type='text'/>
+                                    <Input type='text' />
                                     <FormLabel mt={'5px'}>Mobile *</FormLabel>
                                     <Input type={'number'} />
                                 </FormControl>

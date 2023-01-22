@@ -18,6 +18,20 @@ const Payment = () => {
     }, []);
 
 
+    const removeItemFromCart = () => {
+        fetch(`${BackendURL}/cart/changecartactive`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token')
+            },
+            body: JSON.stringify({ cartId: localStorage.getItem("cartItem") })
+        }).then(res => res.json()).then(res => {
+            console.log(res)
+        }).catch(err => console.log(err))
+    };
+
+
     const handleOrder = () => {
         fetch(`${BackendURL}/order/`, {
             method: "POST",
@@ -26,7 +40,10 @@ const Payment = () => {
                 'token': localStorage.getItem("token"),
             },
             body: JSON.stringify({ priceTotal: 20, paymentMethod: "cash", DeliveryAdress: "abcd", cartId: localStorage.getItem("cartItem") })
-        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.log(err))
+        }).then(res => res.json()).then(res => {
+            removeItemFromCart();
+            console.log(res)
+        }).catch(err => console.log(err))
 
         fetch(`${BackendURL}/cart/delete/${userid}`, {
             method: "DELETE",
@@ -36,7 +53,7 @@ const Payment = () => {
             }
         }).then(res => res.json()).then((res) => console.log("Order Placed")).catch(err => console.log(err))
         alert('Successfully placed order')
-        return window.location.href='/';
+        return window.location.href = '/';
     }
 
     let total = Math.round(cart.reduce((a, c) => a + c.productId.price, 0))
@@ -63,7 +80,7 @@ const Payment = () => {
                             <Input width={'45%'} placeholder='Expiry YY' />
                         </Box>
                         <Box>
-                                 <Button bg={'#e40980'} width='40%' borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mb={5} onClick={handleOrder}>
+                            <Button bg={'#e40980'} width='40%' borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mb={5} onClick={handleOrder}>
                                 PAY ₹{total}
                             </Button>
                         </Box>
