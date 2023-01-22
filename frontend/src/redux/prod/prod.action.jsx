@@ -1,8 +1,9 @@
 import axios from "axios";
 import { ADD_ERROR, PROD_GET, QUERY_ITEM } from "./prod.type";
+import BackendURL from "../../BackendURL";
 
 export const GetToProduct = () => async (dispatch) => {
-  let { data } = await axios.get(" http://localhost:8080/prod");
+  let { data } = await axios.get(`${BackendURL}/prod`);
   try {
     // console.log(data.messg);
     dispatch({ type: PROD_GET, payload: data.messg });
@@ -13,7 +14,7 @@ export const GetToProduct = () => async (dispatch) => {
 };
 
 export const GetToQueryProduct = (query) => async (dispatch) => {
-  let { data } = await axios.get(`http://localhost:8080/prod?query=${query}`);
+  let { data } = await axios.get(`${BackendURL}/prod?query=${query}`);
   try {
     // console.log(data.messg);
     dispatch({ type: QUERY_ITEM, payload: data.messg });
@@ -25,7 +26,7 @@ export const GetToQueryProduct = (query) => async (dispatch) => {
 
 export const GetToSearchQueryProduct = (query) => async (dispatch) => {
   let { data } = await axios.get(
-    `http://localhost:8080/prod/search?query=${query}`
+    `${BackendURL}/prod/search?query=${query}`
   );
   try {
     // console.log(data.messg);
