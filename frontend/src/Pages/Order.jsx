@@ -34,14 +34,12 @@ const Order = () => {
                         <Tr>
                             <Td>Product Brand</Td>
                             <Td>UserID</Td>
-                            <Td>When</Td>
                             <Td>Status</Td>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {orders ? orders.map((ele) =>
                             <Tr key={ele._id}>
-                                <Td>{ele.cartId.products.map((p) => p.productId.brand)}</Td>
                                 <Td>{ele.userId}</Td>
                                 <Td>{ele.createdAt}</Td>
                                 <Td>{ele.currentStatus}</Td>
