@@ -7,7 +7,6 @@ const connect = require("./src/config/db");
 const UserRoutes = require("./src/routes/user.route");
 const LoginRoute = require("./src/routes/login.route");
 const SignupRotue = require("./src/routes/signup.route");
-// const { cartRouter } = require("./src/routes/cart.route");
 const CartRouter = require('./src/routes/cart.route');
 const ProdRoute = require("./src/routes/prod.route");
 const OrderRouter  = require('./src/routes/order.route');

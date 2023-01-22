@@ -10,14 +10,12 @@ let CartModel = require("../models/cart.model");
 
 app.get("/fetchcartItem", async (req, res) => {
   let { token } = req.headers;
+  if (token == "Pushpendra Singh") {
+    return res.send({ "msg": "Not logged in" })
+  };
 
-  if(!token){
-    return res.status(501).send("Not logged in")
-  }
   token = jwt.verify(token, process.env.token_password);
-
   let userId = token.id;
-
   let cartItem = await CartModel.find({ userId, active: true }).populate({
     path: "products",
     populate: { path: "productId" },
@@ -38,7 +36,7 @@ app.get("/fetchcartItem", async (req, res) => {
 app.post("/", async (req, res) => {
   let { token } = req.headers;
   let { productId, qty } = req.body;
-  if(!token){
+  if (!token) {
     return res.status(501).send("Not logged in")
   }
   token = jwt.decode(token, process.env.token_password);
@@ -70,16 +68,37 @@ app.post("/", async (req, res) => {
   }
 });
 
+app.post("/changecartactive", async (req, res) => {
+  let { token } = req.headers;
+  let { cartId } = req.body;
+  if (!token) {
+    return res.status(501).send({ "msg": "Not logged in" })
+  }
+  token = jwt.decode(token, process.env.token_password);
+  let userId = token.id;
+  let cart = await CartModel.findOne({ userId });
+  try {
+    if (!cart) {
+      return res.send({ "msg": "Cart not exsit" })
+    } else {
+      await CartModel.updateOne({ userId, cartId, active: false });
+      return res.send({"msg": "Cart updated successfully"});
+    }
+  } catch (e) {
+    return res.send( {"msg": e.message});
+  }
+});
+
 app.delete("/delete/:id", async (req, res) => {
   const id = req.params.id
   try {
-      let itsms=await CartModel.findByIdAndDelete({ "_id": id })
-      console.log("These are the items",itsms)
-      res.send("Your Order has been placed successfully")
+    let itsms = await CartModel.findByIdAndDelete({ "_id": id })
+    console.log("These are the items", itsms)
+    res.send("Your Order has been placed successfully")
   }
   catch (err) {
-      console.log(err)
-      console.log("Error occured while removing product")
+    console.log(err)
+    console.log("Error occured while removing product")
   }
 })
 
@@ -89,8 +108,8 @@ app.post("/delete", async (req, res) => {
   let { token } = req.headers;
   let { productId, _id } = req.body;
   console.log(req.body)
-  console.log("This is token",token,productId,_id)
-  if(!token){
+  console.log("This is token", token, productId, _id)
+  if (!token) {
     return res.status(501).send("Not logged in")
   }
   token = jwt.decode(token, process.env.token_password);
@@ -112,7 +131,7 @@ app.post("/delete", async (req, res) => {
         cart.products.splice(itemIndex, 1);
       }
       await cart.save();
-      console.log("This is ",cart);
+      console.log("This is ", cart);
       return res.status(201).send(cart);
     }
   } catch (e) {
