@@ -14,7 +14,7 @@ import Register from "./Register";
 import ProductMain from "./ProductMain"
 import Payment from "./Payment";
 import Order from "./Order";
-
+import Emptycart from "./Emptycart";
 export default function AllRoutes() {
   return (
     <Routes>
@@ -27,6 +27,7 @@ export default function AllRoutes() {
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Payment />}></Route>
       <Route path="/order" element={<Order />}></Route>
+      <Route path='emptycart' element={<Emptycart/>}></Route>
     </Routes>
   );
 }

@@ -70,37 +70,53 @@ app.post("/", async (req, res) => {
   }
 });
 
+app.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+      let itsms=await CartModel.findByIdAndDelete({ "_id": id })
+      console.log("These are the items",itsms)
+      res.send("Your Order has been placed successfully")
+  }
+  catch (err) {
+      console.log(err)
+      console.log("Error occured while removing product")
+  }
+})
+
+
 // ****************Remove from Cart******************
-// app.post("/delete", async (req, res) => {
-//   let { token } = req.headers;
-//   let { productId, _id } = req.body;
-//   if(!token){
-//     return res.status(501).send("Not logged in")
-//   }
-//   token = jwt.decode(token, process.env.token_password);
-//   let userId = token.id;
-//   let cart = await CartModel.findOne({ userId, _id });
-//   // let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-//   // console.log(cart);
-//   // return;
-//   try {
-//     if (!cart) {
-//       return res
-//         .status(401)
-//         .send("There is no no any cart to remove the product");
-//     } else {
-//       let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-//       if (cart.products.length === 1) {
-//         await CartModel.findByIdAndDelete({ _id });
-//       } else {
-//         cart.products.splice(itemIndex, 1);
-//       }
-//       await cart.save();
-//       console.log(cart);
-//       return res.status(201).send(cart);
-//     }
-//   } catch (e) {
-//     return res.send(e.message);
-//   }
-// });
+app.post("/delete", async (req, res) => {
+  let { token } = req.headers;
+  let { productId, _id } = req.body;
+  console.log(req.body)
+  console.log("This is token",token,productId,_id)
+  if(!token){
+    return res.status(501).send("Not logged in")
+  }
+  token = jwt.decode(token, process.env.token_password);
+  let userId = token.id;
+  let cart = await CartModel.findOne({ userId, _id });
+  // let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+  // console.log(cart);
+  // return;
+  try {
+    if (!cart) {
+      return res
+        .status(401)
+        .send("There is no no any cart to remove the product");
+    } else {
+      let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+      if (cart.products.length === 1) {
+        await CartModel.findByIdAndDelete({ _id });
+      } else {
+        cart.products.splice(itemIndex, 1);
+      }
+      await cart.save();
+      console.log("This is ",cart);
+      return res.status(201).send(cart);
+    }
+  } catch (e) {
+    return res.send(e.message);
+  }
+});
 module.exports = app;

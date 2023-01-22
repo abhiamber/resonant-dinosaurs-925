@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Cart.css"
-import Cartitems from '../components/Cartitems'
+import Cartitems from '../Components/Cartitems'
 import BackendURL from '../BackendURL'
 import {
     Box, SimpleGrid, Image, Text, Divider, Button,
@@ -16,7 +16,7 @@ import {
     FormLabel,
     Input
 } from "@chakra-ui/react"
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 
 const Cart = () => {
     const [cart, setCart] = useState([])
@@ -31,10 +31,10 @@ const Cart = () => {
             headers: {
                 'Content-Type': 'application/json',
                 token: localStorage.getItem("token"),
-                // "user": localStorage.getItem("userID")
             }
         }).then(res => res.json()).then(res =>{
             setCart(res[0].products);
+            localStorage.setItem("uproid",res[0]._id)
             localStorage.setItem("cartItem", res[0]._id);
         }).catch(err => console.log(err))
     }, []);
@@ -50,7 +50,7 @@ const Cart = () => {
                 <Text textAlign={'left'} fontSize='18px' color={'black'} fontWeight='bold'>MY Cart({cart.length})</Text>
                 {
                     cart ? cart.map((item) => (
-                        <Cartitems key={item._id} pro_id={item.productId._id} image_link={item.productId.image_link} name={item.productId.name} quantity={item.productId.quantity} price={item.productId.price} />
+                        <Cartitems key={item._id} product_Id={item.productId} image_link={item.productId.image_link} name={item.productId.name} quantity={item.productId.quantity} price={item.productId.price} />
                     )) : <h1>Null</h1>
                 }
             </Box>
@@ -105,19 +105,19 @@ const Cart = () => {
                             <ModalHeader>Enter your delivery details</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody textAlign={'left'} pb={6} display='flex' flexDirection={'column'} gap='10px'>
-                                <FormControl>
+                                <FormControl isRequired>
                                     <FormLabel mt={'5px'}>Name *</FormLabel>
-                                    <Input ref={initialRef} />
+                                    <Input ref={initialRef} type='text'/>
                                     <FormLabel mt={'5px'}>Pincode *</FormLabel>
                                     <Input type={'number'} />
                                     <FormLabel mt={'5px'}>Address *</FormLabel>
-                                    <Input />
+                                    <Input type={'text'}/>
                                     <FormLabel mt={'5px'}>Landmark </FormLabel>
-                                    <Input />
+                                    <Input type='text'/>
                                     <FormLabel mt={'5px'}>City *</FormLabel>
-                                    <Input />
+                                    <Input type='text'/>
                                     <FormLabel mt={'5px'}>State *</FormLabel>
-                                    <Input />
+                                    <Input type='text'/>
                                     <FormLabel mt={'5px'}>Mobile *</FormLabel>
                                     <Input type={'number'} />
                                 </FormControl>

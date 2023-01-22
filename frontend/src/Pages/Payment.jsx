@@ -1,18 +1,20 @@
-import { Box, Button, Divider, Image, Input, Radio, RadioGroup, Select, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Divider, Image, Input, Radio, RadioGroup, Select, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { Navigate, NavLink } from 'react-router-dom'
 import BackendURL from '../BackendURL'
 import "./Payment.css"
 const Payment = () => {
     const [cart, setCart] = useState([])
-
+    let userid = localStorage.getItem("uproid");
     useEffect(() => {
-        // fetch(`${BackendURL}/cart`, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': localStorage.getItem("token"),
-        //         'user': localStorage.getItem("userID")
-        //     }
-        // }).then(res => res.json()).then(res => setCart(res)).catch(err => console.log(err))
+        fetch(`${BackendURL}/cart/fetchcartItem`, {
+            headers: {
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token')
+            }
+        }).then(res => res.json()).then(res => {
+            setCart(res[0].products);
+        }).catch(err => console.log(err))
     }, []);
 
 
@@ -23,11 +25,21 @@ const Payment = () => {
                 'Content-Type': 'application/json',
                 'token': localStorage.getItem("token"),
             },
-            body: JSON.stringify({ priceTotal: 20, paymentMethod: "case", DeliveryAdress: "abcd", cartId: localStorage.getItem("cartItem") })
-        }).then(res => res.json()).then(res => console.log(res) ).catch(err => console.log(err))
+            body: JSON.stringify({ priceTotal: 20, paymentMethod: "cash", DeliveryAdress: "abcd", cartId: localStorage.getItem("cartItem") })
+        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.log(err))
+
+        fetch(`${BackendURL}/cart/delete/${userid}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                token: localStorage.getItem("token")
+            }
+        }).then(res => res.json()).then((res) => console.log("Order Placed")).catch(err => console.log(err))
+        alert('Successfully placed order')
+        return window.location.href='/';
     }
 
-    let total = Math.round(cart.reduce((a, c) => a + c.price, 0))
+    let total = Math.round(cart.reduce((a, c) => a + c.productId.price, 0))
     total = total * 75;
     var date = new Date()
     var month = date.toLocaleString("default", { month: "short" });
@@ -51,7 +63,7 @@ const Payment = () => {
                             <Input width={'45%'} placeholder='Expiry YY' />
                         </Box>
                         <Box>
-                            <Button bg={'#e40980'} width='40%' borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mb={5} onClick={handleOrder}>
+                                 <Button bg={'#e40980'} width='40%' borderRadius='0px' _hover={{ bg: '#e40980' }} color='white' mb={5} onClick={handleOrder}>
                                 PAY ₹{total}
                             </Button>
                         </Box>
