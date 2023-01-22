@@ -20,14 +20,13 @@ import BackendURL from "../BackendURL";
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [user, setUser] = useState("");
     const { login } = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
     const redirectPath = location.state?.path || "/";
+    const [first, setFirst] = useState({});
 
     /*google login*/
-    const [first, setFirst] = useState({});
     const handleCallbackResponse = (response) => {
         console.log("token:" + response.credential);
         var userObject = jwt_decode(response.credential);
@@ -80,7 +79,7 @@ export default function Login() {
                 if (data.status === "OK") {
                     alert("Login Successful");
                     login(data);
-                    localStorage.setItem("token",data.token)
+                    localStorage.setItem("token", data.token)
                     navigate(redirectPath, { replace: true });
                 }
             })
@@ -89,6 +88,7 @@ export default function Login() {
 
     if (first.name) {
         console.log(first.name);
+        login({ user: first.name });
         alert(`Login Successful with ${first.name}`);
         navigate(redirectPath, { replace: true });
     }
