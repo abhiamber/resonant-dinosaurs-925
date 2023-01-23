@@ -1,1 +1,1 @@
-Vercel_Deploy: "https://frontend-eight-tawny-20.vercel.app"
+Vercel_Deploy: "https://resonant-dinosaurs-925.vercel.app"
