@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import SearchBox from "./components/SearchBox";
 import { useLayoutEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
-import AsFooter from "./components/AsFooter";
+import AsFooter from "./components/Home/AsFooter";
 function App() {
   const [scrolled, setScrolled] = useState(false);
 

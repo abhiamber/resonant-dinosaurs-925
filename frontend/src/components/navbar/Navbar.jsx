@@ -9,7 +9,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  // Heading,
   Image,
   Input,
   Popover,
@@ -27,7 +26,6 @@ import NavItem from "./NavbarItem/NavItem";
 import logo from "../../image/P.png";
 import { CiFaceSmile, CiHeart, CiSearch, CiShoppingCart } from "react-icons/ci";
 import { AuthContext } from "../../Utilis/Auth";
-
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -36,26 +34,19 @@ import {
 } from "../../redux/prod/prod.action";
 import Navmenu from "./NavbarItem/Navmenu";
 
-let user;
 const Navbar = () => {
+  let user;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { logout } = useContext(AuthContext);
+  let users = JSON.parse(localStorage.getItem("userName")) || null;
 
-  let users = JSON.parse(localStorage.getItem("userName"));
   if (users) {
     user = users.user;
   }
-  console.log(user);
-
-  // console.log(users.user, "sbcjhsbcjaBSckja");
-
   const btnRef = React.useRef();
-
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-
   let [query, setQuery] = useState();
-
   const handleSearch = () => {
     if (!query) {
       return alert("Your Query is empty");
@@ -216,7 +207,7 @@ const Navbar = () => {
                       </Text>
                     )}
                     {user &&
-                    localStorage.getItem("email") ===
+                      localStorage.getItem("email") ===
                       "pushpendra1697@gmail.com" ? (
                       <Text fontSize={"23px"}>
                         {" "}

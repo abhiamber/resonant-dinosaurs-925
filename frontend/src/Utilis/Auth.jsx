@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", user.token);
     localStorage.setItem("email", user.email);
     localStorage.setItem("userName", JSON.stringify({ user: user.user }));
-
     setUser(user);
   };
 
@@ -18,8 +17,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-
-    // console.log("CNjksncksjncksnkjs");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("email");

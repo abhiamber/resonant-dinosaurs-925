@@ -37,22 +37,24 @@ import { AuthContext } from "../Utilis/Auth";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  // GetToQueryProduct,
   GetToSearchQueryProduct,
 } from "../redux/prod/prod.action";
-// import Navbar from "./navbar/Navbar";
-let user;
+
+
 const SearchBox = () => {
+  let user;
   const { logout } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const btnRef = React.useRef();
   let [query, setQuery] = useState();
-  let users = JSON.parse(localStorage.getItem("userName"));
+  let users = JSON.parse(localStorage.getItem("userName")) || null;
   if (users) {
     user = users.user;
   }
+
+  console.log(user);
 
   const handleSearch = () => {
     if (!query) {

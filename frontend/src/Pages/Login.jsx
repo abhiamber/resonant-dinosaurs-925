@@ -33,6 +33,7 @@ export default function Login() {
     setFirst(userObject);
     document.getElementById("signInDiv").hidden = true;
   };
+  
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
