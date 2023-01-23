@@ -10,7 +10,13 @@ import {
 export default function AsFooter() {
   return (
     <>
-      <SimpleGrid columns={[2,2,4]} p={["20px","20px","20px"]} pb={["50px","50px","50px"]} pr={["150px","150px","150px"]}>
+      <SimpleGrid
+        mt="30px"
+        columns={[2, 2, 4]}
+        p={["20px", "20px", "20px"]}
+        pb={["50px", "50px", "50px"]}
+        pr={["150px", "150px", "150px"]}
+      >
         <VStack>
           <Box>
             <Heading
@@ -191,8 +197,13 @@ export default function AsFooter() {
         </VStack>
       </SimpleGrid>
       <Box border="1px" borderColor="#e8e8e8" w="85%" m="auto"></Box>
-      <SimpleGrid columns={[1,1,2]}>
-        <SimpleGrid columns={4} pl={[null,null,"120px"]} pr={[null,null,"120px"]} spacing="150px">
+      <SimpleGrid columns={[1, 1, 2]}>
+        <SimpleGrid
+          columns={4}
+          pl={[null, null, "120px"]}
+          pr={[null, null, "120px"]}
+          spacing="150px"
+        >
           <Box w="200px">
             <Heading as="h5" size="15px" color="gray" pt="40px" pl="30px">
               PAYMENT
@@ -207,7 +218,12 @@ export default function AsFooter() {
             />
           </Box>
         </SimpleGrid>
-        <SimpleGrid columns={4} pl={[null,null,"120px"]} pr={[null,null,"120px"]} spacing="150px">
+        <SimpleGrid
+          columns={4}
+          pl={[null, null, "120px"]}
+          pr={[null, null, "120px"]}
+          spacing="150px"
+        >
           <Box w="200px">
             <Heading as="h5" size="15px" color="gray" pt="40px" pl="30px">
               CONNECT
@@ -215,8 +231,8 @@ export default function AsFooter() {
           </Box>
           <Box pl="-20px" w="300px">
             <Image
-                cursor="pointer"
-                w="200px"
+              cursor="pointer"
+              w="200px"
               mt="0px"
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5XY1bxw40RPgonlgvx4W_5JcNQA5szpT1Bw&usqp=CAU"
             />

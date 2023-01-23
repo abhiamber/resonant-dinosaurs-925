@@ -36,10 +36,7 @@ import { AuthContext } from "../Utilis/Auth";
 
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  GetToSearchQueryProduct,
-} from "../redux/prod/prod.action";
-
+import { GetToSearchQueryProduct } from "../redux/prod/prod.action";
 
 const SearchBox = () => {
   let user;
@@ -54,7 +51,7 @@ const SearchBox = () => {
     user = users.user;
   }
 
-  console.log(user);
+  // console.log(user);
 
   const handleSearch = () => {
     if (!query) {

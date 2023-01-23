@@ -12,7 +12,6 @@ const threestar = "https://cdn-icons-png.flaticon.com/128/991/991999.png";
 const twostar = "https://cdn-icons-png.flaticon.com/128/991/991998.png";
 const onestar = "https://cdn-icons-png.flaticon.com/128/991/991997.png";
 
-
 const Productdetails = () => {
   const [pro, setPro] = React.useState({});
   const params = useParams();
@@ -23,7 +22,7 @@ const Productdetails = () => {
       .then((res) => setPro(res.messg))
       .catch((err) => console.log(err));
   }, [params.id]);
-  console.log(pro)
+  // console.log(pro);
 
   //   console.log(pro);
 
@@ -45,7 +44,6 @@ const Productdetails = () => {
       alert("You cannot add product without Login");
     }
 
-
     // const res = await fetch(`${BackendURL}/order/post`, {
     //   method: "POST",
     //   body: JSON.stringify(pro),
@@ -58,8 +56,6 @@ const Productdetails = () => {
     // }).catch((err) => {
     //   console.log(err)
     // });
-
-
   };
 
   let rating = "";
@@ -84,10 +80,15 @@ const Productdetails = () => {
           />
         </Box>
         <Box textAlign="left">
-          <Text marginBottom="10px" fontSize={"18px"} fontWeight="600">
+          <Text m="18px" fontSize={"18px"} fontWeight="600">
             Description
           </Text>
-          <Text lineHeight="25px" fontSize={"14px"} fontFamily={"sans-serif"}>
+          <Text
+            lineHeight="25px"
+            fontSize={"14px"}
+            textAlign="justify"
+            fontFamily={"sans-serif"}
+          >
             {pro.description}
           </Text>
         </Box>
@@ -111,14 +112,14 @@ const Productdetails = () => {
         </Text>
         <SimpleGrid columns={[1, 2, 2, 2]} gap="8px" marginTop={"20px"}>
           <Box width={"100%"}>
-            <NavLink to="/cart"><Button
+            <Button
               className="cart_button"
               bg="#6600ff"
               _hover={{ bg: "#6600ff" }}
               onClick={handleAdd}
             >
               Add To Cart
-            </Button></NavLink>
+            </Button>
           </Box>
           <Box width={"100%"}>
             <Button

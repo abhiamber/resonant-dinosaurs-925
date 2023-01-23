@@ -103,16 +103,12 @@ const Product = () => {
         <Skeleton height="40px" />
         <Skeleton height="40px" />
         <Skeleton height="40px" />
-
-        <Skeleton height="40px" />
-        <Skeleton height="40px" />
-        <Skeleton height="40px" />
       </Stack>
     );
   }
 
   return (
-    <Box>
+    <Box mb="30px">
       <Box>
         <ProductFunctionality sortFilterFunc={sortFilterFunc} />
       </Box>{" "}
@@ -131,12 +127,20 @@ const Product = () => {
                 border="1px"
                 borderColor={"gray.200"}
                 m="auto"
-                p="3"
+                p="2"
                 w="100%"
                 cursor="pointer"
-                height="auto"
+                height="400px"
                 boxShadow={` rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;`}
               >
+                <Text fontWeight={"bold"} p="3" fontSize={"15px"}>
+                  {prod.quantity === 0
+                    ? "SoldOut"
+                    : prod.quantity < 10
+                    ? `Only ${prod.quantity} left`
+                    : null}
+                </Text>
+
                 <Link to={`/productmain/${prod._id}`}>
                   {" "}
                   <Image
@@ -147,28 +151,60 @@ const Product = () => {
                     h="200px"
                   />
                 </Link>
-                <Text fontSize="15px" fontWeight="600" textAlign={"left"}>
+                <Text
+                  fontSize="15px"
+                  p="5px"
+                  fontWeight="600"
+                  textAlign={"center"}
+                  // h="30px"
+                >
                   {prod.name}
                 </Text>
-                <Text fontSize="15px" fontWeight="600" textAlign={"left"}>
+                <Text fontSize="15px" fontWeight="600" textAlign={"center"}>
                   {" "}
                   Price - {prod.price}
+                  {prod.price_sign}
                 </Text>
-                <Button
-                  bg="#fd1d92"
-                  borderRadius={"35px"}
-                  fontSize="15px"
-                  h="30px"
-                  mt="3px"
-                  color={"white"}
-                  fontWeight="light"
-                  textAlign={"center"}
-                  _hover={{ bg: "#fd1d65" }}
+
+                <Box
+                  display={"flex"}
+                  justifyContent="space-around
+                "
+                  flexd="coloumn"
+                  mt="15px"
+                  justifyItems={"center"}
                 >
-                  {" "}
-                  {prod.rating}{" "}
-                  <StarIcon color={"white"} pl="5px" fontSize={"18px"} />
-                </Button>
+                  <Button
+                    bg="#fd1d92"
+                    borderRadius={"35px"}
+                    fontSize="15px"
+                    h="30px"
+                    mt="3px"
+                    color={"white"}
+                    fontWeight="light"
+                    textAlign={"center"}
+                    _hover={{ bg: "#fd1d65" }}
+                  >
+                    {" "}
+                    Rating {prod.rating}{" "}
+                    <StarIcon color={"white"} pl="5px" fontSize={"18px"} />
+                  </Button>
+
+                  <Button
+                    bg="#fd1d92"
+                    borderRadius={"35px"}
+                    fontSize="15px"
+                    h="30px"
+                    mt="3px"
+                    color={"white"}
+                    fontWeight="light"
+                    textAlign={"center"}
+                    _hover={{ bg: "#fd1d65" }}
+                  >
+                    {" "}
+                    {prod.review} Review
+                  </Button>
+                </Box>
               </Box>
             );
           })}
