@@ -8,16 +8,21 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { GetToProduct } from "../../redux/prod/prod.action";
 // import { useDispatch, useSelector } from "react-redux";
 // import { GetToQueryProduct } from "../../redux/prod/prod.action";
+
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ProductFunctionality = ({ sortFilterFunc }) => {
   const [value, setValue] = React.useState();
   const [allProdStatus, setAllProdStatus] = useState(false);
 
+  let [page, setPage] = useState(1);
+
   useEffect(() => {
-    sortFilterFunc(value);
-  }, [value]);
+    sortFilterFunc(value, page);
+  }, [value, page]);
 
   return (
     <Box mt="20px">
@@ -45,6 +50,35 @@ const ProductFunctionality = ({ sortFilterFunc }) => {
           </RadioGroup>
         </Box>
       </Flex>
+
+      <Box
+        textAlign={"center"}
+        display="flex"
+        justifyContent={"center"}
+        alignItems="center"
+        gap={3}
+        flexWrap="wrap"
+        w="80%"
+        m="auto"
+        p="10px"
+        mt="20px"
+      >
+        {allProdStatus
+          ? arr.map((el, i) => {
+              return (
+                <Button
+                  variant={"outline"}
+                  color="teal"
+                  bg="orange.400"
+                  onClick={() => setPage(el)}
+                  Key={i}
+                >
+                  {el}
+                </Button>
+              );
+            })
+          : null}
+      </Box>
     </Box>
   );
 };

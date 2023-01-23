@@ -24,7 +24,7 @@ import ProductFunctionality from "./ProductFunctionality";
 
 const Product = () => {
   const [productData, setProductData] = useState([]);
-  const [length, setLength] = useState(20);
+  // const [length, setLength] = useState(20);
   const [mapData, setMapData] = useState([]);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Product = () => {
 
   const setLengthFunction = () => {
     // console.log("bjabxh");
-    setMapData(prod.data.slice(0, length));
+    setMapData(prod.data);
   };
 
   const getData = () => {
@@ -47,7 +47,7 @@ const Product = () => {
     }
   };
 
-  const sortFilterFunc = (value) => {
+  const sortFilterFunc = (value, page = 1) => {
     if (value === "1") {
       let updated = prod.data.map((el) => {
         return el;
@@ -71,9 +71,9 @@ const Product = () => {
 
       dispatch({ type: "UPDATED", payload: updated });
     } else if (value === "4") {
-      dispatch(GetToQueryProduct("foundation"));
+      dispatch(GetToQueryProduct("foundation", page));
     } else if (value === "5") {
-      dispatch(GetToQueryProduct("lipstick"));
+      dispatch(GetToQueryProduct("lipstick", page));
     }
   };
 
@@ -87,10 +87,6 @@ const Product = () => {
 
     // console.log(mapData);
   }, [prod]);
-
-  useEffect(() => {
-    setLengthFunction();
-  }, [length]);
 
   if (!productData.length > 0) {
     return (
@@ -177,16 +173,6 @@ const Product = () => {
             );
           })}
       </SimpleGrid>
-      <Box>
-        <Button
-          onClick={() => {
-            setLength(length + length);
-          }}
-          bg="#fd1d92"
-        >
-          LoadMore
-        </Button>
-      </Box>
     </Box>
   );
 };

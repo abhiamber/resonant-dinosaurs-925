@@ -13,8 +13,10 @@ export const GetToProduct = () => async (dispatch) => {
   }
 };
 
-export const GetToQueryProduct = (query) => async (dispatch) => {
-  let { data } = await axios.get(`${BackendURL}/prod?query=${query}`);
+export const GetToQueryProduct = (query, page) => async (dispatch) => {
+  let { data } = await axios.get(
+    `${BackendURL}/prod?query=${query}&page=${page}`
+  );
   try {
     // console.log(data.messg);
     dispatch({ type: QUERY_ITEM, payload: data.messg });
@@ -25,9 +27,7 @@ export const GetToQueryProduct = (query) => async (dispatch) => {
 };
 
 export const GetToSearchQueryProduct = (query) => async (dispatch) => {
-  let { data } = await axios.get(
-    `${BackendURL}/prod/search?query=${query}`
-  );
+  let { data } = await axios.get(`${BackendURL}/prod/search?query=${query}`);
   try {
     // console.log(data.messg);
     dispatch({ type: QUERY_ITEM, payload: data.messg });

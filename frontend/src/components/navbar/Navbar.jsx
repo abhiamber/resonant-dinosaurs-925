@@ -9,7 +9,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Heading,
+  // Heading,
   Image,
   Input,
   Popover,
@@ -36,10 +36,18 @@ import {
 } from "../../redux/prod/prod.action";
 import Navmenu from "./NavbarItem/Navmenu";
 
+let user;
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user, logout } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
 
+  let users = JSON.parse(localStorage.getItem("userName"));
+  if (users) {
+    user = users.user;
+  }
+  console.log(user);
+
+  // console.log(users.user, "sbcjhsbcjaBSckja");
 
   const btnRef = React.useRef();
 
@@ -70,8 +78,6 @@ const Navbar = () => {
       zIndex={999}
       bg="white"
       mb="5px"
-
-
     >
       <Box p="4" w="70px">
         <Link to="/" w="70px">
@@ -169,22 +175,66 @@ const Navbar = () => {
                 <PopoverArrow />
                 <PopoverHeader>
                   <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
-                  <Flex mx="10px" alignItems="center" justifyContent="space-between" flexDirection={"column"}>
-                    {user ? <Text color={"green"} fontSize="20px"><Link to="#">{user.user}</Link></Text> : <Button color={"black"} variant="outline" w="150px" bg="blue"><Link to="/login">Sign in</Link></Button>}
-                    {user ? <Text fontSize={"17px"} color={"red"}><Link to="/order">Your Order</Link></Text> : <Text fontSize={"17px"} color={"red"}><Link to="/register">New Customer?</Link></Text>}
-                    {user ? <Text fontSize={"23px"} color={"red"}><Link to="/" onClick={logout}>Logout</Link></Text> : <Text fontSize={"20px"} color={"red"}><Link to="/register">Register Now.</Link></Text>}
-                    {user && localStorage.getItem("email") === "pushpendra1697@gmail.com" ? <Text fontSize={"23px"}> <Link to="/admin">Admin</Link> </Text> : <Text fontSize={"23px"}> <Link to="/admin">User</Link> </Text>}
+                  <Flex
+                    mx="10px"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    flexDirection={"column"}
+                  >
+                    {user ? (
+                      <Text color={"green"} fontSize="20px">
+                        <Link to="#">{user}</Link>
+                      </Text>
+                    ) : (
+                      <Button
+                        color={"black"}
+                        variant="outline"
+                        w="150px"
+                        bg="blue"
+                      >
+                        <Link to="/login">Sign in</Link>
+                      </Button>
+                    )}
+                    {user ? (
+                      <Text fontSize={"17px"} color={"red"}>
+                        <Link to="/order">Your Order</Link>
+                      </Text>
+                    ) : (
+                      <Text fontSize={"17px"} color={"red"}>
+                        <Link to="/register">New Customer?</Link>
+                      </Text>
+                    )}
+                    {user ? (
+                      <Text fontSize={"23px"} color={"red"}>
+                        <Link to="/" onClick={logout}>
+                          Logout
+                        </Link>
+                      </Text>
+                    ) : (
+                      <Text fontSize={"20px"} color={"red"}>
+                        <Link to="/register">Register Now.</Link>
+                      </Text>
+                    )}
+                    {user &&
+                    localStorage.getItem("email") ===
+                      "pushpendra1697@gmail.com" ? (
+                      <Text fontSize={"23px"}>
+                        {" "}
+                        <Link to="/admin">Admin</Link>{" "}
+                      </Text>
+                    ) : (
+                      <Text fontSize={"23px"}>
+                        {" "}
+                        <Link to="/admin">User</Link>{" "}
+                      </Text>
+                    )}
                   </Flex>
                   <Box h="1px" bg="black" w="70%" m="auto"></Box>
                 </PopoverHeader>
-                <PopoverBody>
-                </PopoverBody>
+                <PopoverBody></PopoverBody>
               </PopoverContent>
             </Popover>
           </Box>
-
-
-
 
           <Box
             color={"black"}

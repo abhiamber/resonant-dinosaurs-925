@@ -1,6 +1,4 @@
 import AllRoutes from "./Pages/Allroutes";
-import SearchContextProvider from "./Utilis/Context/SearchContext";
-import { CartContextProvider } from "./Utilis/Context/CartContext";
 import Navbar from "./components/navbar/Navbar";
 import Header from "./components/Header";
 import SearchBox from "./components/SearchBox";
@@ -23,25 +21,20 @@ function App() {
   }, []);
   return (
     <div>
-      <SearchContextProvider>
-        <CartContextProvider>
-          {scrolled ? (
+      {scrolled ? (
+        <Navbar />
+      ) : (
+        <Box>
+          <Header />
+          <hr />
+          <Box display={{ md: "none", lg: "none", xl: "none" }}>
             <Navbar />
-            
-          ) : (
-            <Box>
-              <Header />
-              <hr />
-              <Box display={{ md: "none", lg: "none", xl: "none" }}>
-                <Navbar />
-              </Box>
-              <SearchBox />
-            </Box>
-          )}
-          <AllRoutes />
-          <AsFooter />
-        </CartContextProvider>
-      </SearchContextProvider>
+          </Box>
+          <SearchBox />
+        </Box>
+      )}
+      <AllRoutes />
+      <AsFooter />
     </div>
   );
 }
