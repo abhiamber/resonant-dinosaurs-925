@@ -9,7 +9,7 @@ ReactJS, JavaScript, Chakra-UI, MongoDB, NodeJS, Express
 
 
 ## Deployment Link
-https://frontend-eight-tawny-20.vercel.app/
+https://resonant-dinosaurs-925.vercel.app
 
 ## Demo Signup Credentials
 Use this Credentials to Signup as a user.
