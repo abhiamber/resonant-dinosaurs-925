@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
-import Cartitems from "../components/Cartitems";
+import Cartitems from "../Components/Cartitems";
 import BackendURL from "../BackendURL";
 import {
   Box,
@@ -61,13 +61,16 @@ const Cart = () => {
   };
 
   // ************************ delete cart item*******
-
+  const _id = localStorage.getItem("uproid")
   const handleDelete = async (productId) => {
-    // console.log(cartId, productId);
+    const payload = {
+      productId:productId,
+      _id:_id
+  }
     try {
       fetch(`${BackendURL}/cart/delete`, {
         method: "POST",
-        body: JSON.stringify({ productId, cartId }),
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
           token: localStorage.getItem("token"),
@@ -233,7 +236,7 @@ const Cart = () => {
               Saving on MRP:
             </Text>
             <Text fontSize={["14px", "14px", "16px", "16px"]} color="red">
-              - ₹{total * (10 / 100)}
+              - ₹{Math.floor(total * (10 / 100))}
             </Text>
           </Box>
           <Box className="pricesubdiv">

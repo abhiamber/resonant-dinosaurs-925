@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import Product from "../components/ShopCatogories/Product";
+import Product from "../Components/ShopCatogories/Product";
 
 const ProductMain = () => {
   return (

@@ -1,19 +1,20 @@
 import { useEffect } from "react";
-import AsBigBrand from "../components/Home/AsBigBrand";
-import AsBigDeals from "../components/Home/AsBigDeals";
-import AsBottomSection from "../components/Home/AsBottomSection";
-import AsBudgetBuy from "../components/Home/AsBudgetBuy";
-import AsCatGallery from "../components/Home/AsCatGallery";
-import AsCatSlider from "../components/Home/AsCatSlider";
-import AsCatStores from "../components/Home/AsCatStores";
-import AsDealGallery from "../components/Home/AsDealGallery";
-import AsDeals from "../components/Home/AsDeals";
-import AsFrGift from "../components/Home/AsFrGift";
-import AsImgGallery from "../components/Home/AsImgGallery";
-import AsSpLooks from "../components/Home/AsSpLooks";
-import AsSpLooksGallery from "../components/Home/AsSpLooksGallery";
+import AsBigBrand from "../Components/Home/AsBigBrand";
+import AsBigDeals from "../Components/Home/AsBigDeals";
+import AsBottomSection from "../Components/Home/AsBottomSection";
+import AsBudgetBuy from "../Components/Home/AsBudgetBuy";
+import AsCatGallery from "../Components/Home/AsCatGallery";
+import AsCatSlider from "../Components/Home/AsCatSlider";
+import AsCatStores from "../Components/Home/AsCatStores";
+import AsDealGallery from "../Components/Home/AsDealGallery";
+import AsDeals from "../Components/Home/AsDeals";
+import AsFrGift from "../Components/Home/AsFrGift";
+import AsImgGallery from "../Components/Home/AsImgGallery";
+import AsSpLooks from "../Components/Home/AsSpLooks";
+import AsSpLooksGallery from "../Components/Home/AsSpLooksGallery";
 
 export default function Home () {
+
     return (
         <>
             <AsImgGallery />
