@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
-// import Cartitems from "../components/Cartitems";
 import BackendURL from "../BackendURL";
 import {
   Box,
@@ -61,9 +60,7 @@ const Cart = () => {
   };
 
   // ************************ delete cart item*******
-
   const handleDelete = async (productId) => {
-    // console.log(cartId, productId);
     try {
       fetch(`${BackendURL}/cart/delete`, {
         method: "POST",
@@ -233,7 +230,7 @@ const Cart = () => {
               Saving on MRP:
             </Text>
             <Text fontSize={["14px", "14px", "16px", "16px"]} color="red">
-              - ₹{total * (10 / 100)}
+              - ₹{Math.floor(total * (10 / 100))}
             </Text>
           </Box>
           <Box className="pricesubdiv">

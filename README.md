@@ -14,9 +14,9 @@ https://frontend-eight-tawny-20.vercel.app
 ## Demo Signup Credentials
 Use this Credentials to Signup as a user.
 
-``Email: abhisekgmail.com``
+``Email:renu12@gmail.com``
 
-``Password: NAURANGA``
+``Password: renu@``
 
 Use this Credentials to Signup as a Admin.
 

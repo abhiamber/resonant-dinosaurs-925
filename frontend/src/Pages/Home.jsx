@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import AsBigBrand from "../components/Home/AsBigBrand";
 import AsBigDeals from "../components/Home/AsBigDeals";
 import AsBottomSection from "../components/Home/AsBottomSection";
@@ -13,22 +13,22 @@ import AsImgGallery from "../components/Home/AsImgGallery";
 import AsSpLooks from "../components/Home/AsSpLooks";
 import AsSpLooksGallery from "../components/Home/AsSpLooksGallery";
 
-export default function Home () {
-    return (
-        <>
-            <AsImgGallery />
-            <AsCatSlider />
-            <AsDeals />
-            <AsDealGallery />
-            <AsCatStores />
-            <AsCatGallery />
-            <AsSpLooks /> 
-            <AsSpLooksGallery />
-            <AsFrGift />
-            <AsBudgetBuy />
-            <AsBigBrand />
-            <AsBigDeals />
-            <AsBottomSection />
-        </>
-    )
+export default function Home() {
+  return (
+    <>
+      <AsImgGallery />
+      <AsCatSlider />
+      <AsDeals />
+      <AsDealGallery />
+      <AsCatStores />
+      <AsCatGallery />
+      <AsSpLooks />
+      <AsSpLooksGallery />
+      <AsFrGift />
+      <AsBudgetBuy />
+      <AsBigBrand />
+      <AsBigDeals />
+      <AsBottomSection />
+    </>
+  );
 }
