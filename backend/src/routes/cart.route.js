@@ -25,15 +25,14 @@ app.get("/fetchcartItem", async (req, res) => {
       // console.log(cartItem);
       return res.send(cartItem);
     } else {
-      return res.send({
-        messg: "there is no item inside the cart",
-        state: "NOT",
-      });
+      return res.send({ messg: "there is no item inside the cart",state:"NOT" });
     }
   } catch (e) {
     return res.send(e.message);
   }
 });
+
+
 
 // **************add to cart*********************
 app.post("/", async (req, res) => {
