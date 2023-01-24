@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
-import Cartitems from "../components/Cartitems";
+// import Cartitems from "../components/Cartitems";
 import BackendURL from "../BackendURL";
 import {
   Box,
@@ -20,13 +20,13 @@ import {
   FormControl,
   FormLabel,
   Input,
-  CardFooter,
+  // CardFooter,
   Stack,
   CardBody,
   Heading,
   Card,
 } from "@chakra-ui/react";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AddIcon, DeleteIcon, MinusIcon } from "@chakra-ui/icons";
 
 const Cart = () => {
@@ -75,7 +75,7 @@ const Cart = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          //   console.log(res);
+          console.log(res);
           getCartItem();
           alert("Item deleted successfully");
         })
