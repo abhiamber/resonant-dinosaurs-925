@@ -9,6 +9,8 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
@@ -33,7 +35,7 @@ export default function Login() {
     setFirst(userObject);
     document.getElementById("signInDiv").hidden = true;
   };
-  
+
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -49,6 +51,10 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    if (email.includes("@gmail.com") === false) {
+      alert("Email Not Correct");
+      return;
+    };
     fetch(`${BackendURL}/login`, {
       method: "POST",
       crossDomain: true,
@@ -85,7 +91,7 @@ export default function Login() {
   };
 
   if (first.name) {
-    console.log(first.name);
+    // console.log(first.name);
     login({ user: first.name });
     alert(`Login Successful with ${first.name}`);
     navigate(redirectPath, { replace: true });

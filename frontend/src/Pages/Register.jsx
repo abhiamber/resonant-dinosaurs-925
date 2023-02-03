@@ -28,10 +28,14 @@ export default function Register() {
     const redirectPath = location.state?.path || "/login";
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ name, address, email, password });
+        // console.log({ name, address, email, password });
         if (name === "" || email === "" || password === "") {
             alert(`Please Fill Mandatory * Fileld`)
-        }
+        };
+        if (email.includes("@gmail.com") === false) {
+            alert("Email Not Correct");
+            return;
+        };
         fetch(`${BackendURL}/signup`, {
             method: "POST",
             crossDomain: true,
