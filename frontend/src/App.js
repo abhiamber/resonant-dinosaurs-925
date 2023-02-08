@@ -2,10 +2,14 @@ import AllRoutes from "./Pages/Allroutes";
 import Navbar from "./components/navbar/Navbar";
 import Header from "./components/Header";
 import SearchBox from "./components/SearchBox";
-import { useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
 import AsFooter from "./components/Home/AsFooter";
+import { ThemeContext } from "./Utilis/ThemeContext/ThemeContext";
+import './App.css';
+
 function App() {
+  const { theme } = useContext(ThemeContext);
   const [scrolled, setScrolled] = useState(false);
 
   useLayoutEffect(() => {
@@ -20,7 +24,7 @@ function App() {
     };
   }, []);
   return (
-    <div>
+    <div id={theme}>
       {scrolled ? (
         <Navbar />
       ) : (

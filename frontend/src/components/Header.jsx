@@ -7,12 +7,16 @@ import {
   Spacer,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Icon } from "@chakra-ui/react";
 import { FaMobileAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import ReactSwitch from "react-switch";
+import { ThemeContext } from "../Utilis/ThemeContext/ThemeContext";
+
 
 const Header = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext)
   return (
     <Flex
       minWidth="max-content"
@@ -32,6 +36,7 @@ const Header = () => {
         flexWrap="wrap"
       >
         {" "}
+        <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
         <Icon as={FaMobileAlt} fontSize={"25px"} />
         <Text> DOWNLOAD APP</Text>
         <Text>| SUPPORT</Text>

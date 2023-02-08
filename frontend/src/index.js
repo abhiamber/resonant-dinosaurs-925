@@ -8,18 +8,21 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./Utilis/Auth";
 import { store } from "./store";
 import { Provider } from "react-redux";
+import ThemeContextProvider from './Utilis/ThemeContext/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <AuthProvider>
-      <BrowserRouter>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
-      </BrowserRouter>
-    </AuthProvider>
-  </Provider>
+  <ThemeContextProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
+          <ChakraProvider>
+            <App />
+          </ChakraProvider>
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
+  </ThemeContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
