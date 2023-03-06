@@ -1,7 +1,7 @@
 
 # SKIN CARE
 
-This is a fully featured MERN project. It is a collaborative project where we try to implement our best possible knowledge to showcase and try to grab attention of users where they are looking for beauty products. It is an ecommerece website
+This is a fully featured MERN project. It is a collaborative project where we try to implement our best possible knowledge to showcase and try to grab attention of users where they are looking for beauty products. It is an ecommerce website
 
 ## Tech Stack
 
