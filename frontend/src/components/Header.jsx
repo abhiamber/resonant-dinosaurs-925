@@ -40,7 +40,7 @@ const Header = () => {
         <Icon as={FaMobileAlt} fontSize={"25px"} />
         <Text> DOWNLOAD APP</Text>
         <Text>| SUPPORT</Text>
-        <Text><Link to={"/order"}>| TRACK ORDER</Link></Text>
+        <Text display={{base: "none", sm:"none", md: "block", xl: "block", "2xl": "block"}}><Link to={"/order"}>| TRACK ORDER</Link></Text>
       </ButtonGroup>
     </Flex>
   );

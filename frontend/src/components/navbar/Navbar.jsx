@@ -162,7 +162,7 @@ const Navbar = () => {
                   <CiFaceSmile />
                 </Box>
               </PopoverTrigger>
-              <PopoverContent w="15vw">
+              <PopoverContent>
                 <PopoverArrow />
                 <PopoverHeader>
                   <Box h="0.5px" bg="black" w="73%" m="auto"></Box>
