@@ -1,2 +1,2 @@
-const BackendURL = "https://purplle-t7vj.onrender.com";
+const BackendURL = "https://blushing-underwear-newt.cyclic.app";
 export default BackendURL;

@@ -38,14 +38,14 @@ app.get("/fetchcartItem", async (req, res) => {
 app.post("/", async (req, res) => {
   let { token } = req.headers;
   let { productId, qty } = req.body;
-  // console.log("nkjbkjbkbj");
-  if (!token) {
-    return res.status(501).send({ meesg: "Not logged in" });
+
+  if (token == "Pushpendra Singh") {
+    return res.send({ msg: "Not logged in" });
   }
+
   token = jwt.decode(token, process.env.token_password);
   let userId = token.id;
   let cart = await CartModel.findOne({ userId });
-  // console.log(itemIndex, productId, qty, "1");
 
   try {
     if (!cart) {
