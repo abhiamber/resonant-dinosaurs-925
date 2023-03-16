@@ -203,6 +203,7 @@ export default function AsFooter() {
           pl={[null, null, "120px"]}
           pr={[null, null, "120px"]}
           spacing="150px"
+          display={{base: 'none', sm: "none", md: "grid", xl: "grid", "2xl": "grid"}}
         >
           <Box w="200px">
             <Heading as="h5" size="15px" color="gray" pt="40px" pl="30px">
@@ -218,6 +219,7 @@ export default function AsFooter() {
             />
           </Box>
         </SimpleGrid>
+
         <SimpleGrid
           columns={4}
           pl={[null, null, "120px"]}
