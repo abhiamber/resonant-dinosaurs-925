@@ -23,6 +23,7 @@ export default function Register() {
     const [address, SetAddress] = useState("");
     const [email, Setemail] = useState("");
     const [password, Setpassword] = useState("");
+    const [phone, setPhone] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const redirectPath = location.state?.path || "/login";
@@ -107,10 +108,14 @@ export default function Register() {
                                 onChange={(e) => Setemail(e.target.value)}
                                 required
                             />
+                            {email.includes("@gmail.com") === false ? <p style={{ color: "red" }}>Not valid Email*</p> : null}
                         </FormControl>
                         <FormControl id="phone">
                             <FormLabel>Phone Number</FormLabel>
-                            <Input placeholder="Phone Number" type="number" />
+                            <Input minLength={10} maxLength={10}
+                                onChange={(e) => setPhone(e.target.value)}
+                                placeholder="Phone Number" type="tel" />
+                            {phone.length < 10 ? <p style={{ color: "red" }}>Not Valid Phone No*</p> : null}
                         </FormControl>
                         <FormControl id="password" isRequired>
                             <FormLabel>Password</FormLabel>
