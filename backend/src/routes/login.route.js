@@ -18,12 +18,12 @@ LoginRoute.post("/", async (req, res) => {
                     id: user._id, role: user.role, name: user.name
                 },
                     process.env.token_password,
-                    { expiresIn: "2days" })
+                    { expiresIn: "365d" })
                 const refreshToken = jwt.sign({
                     id: user._id, role: user.role, name: user.name
                 },
                     process.env.refresh_password,
-                    { expiresIn: "7days" })
+                    { expiresIn: "365d" })
                 res.status(201).json({ token, refreshToken, message: "Login Successful", status: "OK", user: user.name, role: user.role, phone: user.phone, email: user.email })
             }
         }
