@@ -49,12 +49,33 @@ export default function Login() {
     });
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (email.includes("@gmail.com") === false) {
       alert("Email Not Correct");
       return;
     };
+
+    /* After 5 wrong attemp you blocked for 24 hours*/
+    try {
+      let res = await fetch(`${BackendURL}/login/get`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "email": email
+        }
+      });
+      res = await res.json();
+      console.log(res);
+      if (res.msg == "Blocked") {
+        alert(`You are Blocked for 24 Hours`);
+        return;
+      };
+    } catch (err) {
+      console.log(err);
+    };
+
+
     fetch(`${BackendURL}/login`, {
       method: "POST",
       crossDomain: true,

@@ -54,11 +54,14 @@ export default function Register() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data, "userRegister");
+                // console.log(data, "userRegister");
+                if (data.status == "OK") {
+                    alert(`${data.message}`);
+                    navigate(redirectPath, { replace: true });
+                }
                 if (data.status === "NO") {
                     alert("User Already Exists")
                 }
-                navigate(redirectPath, { replace: true });
             })
             .catch((err) => console.log(err));
     };

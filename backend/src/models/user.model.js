@@ -14,6 +14,7 @@ const UserSchema = new Schema(
         },
         age: String,
         Gender: String,
+        BlockedTime: Number
     },
     { versionKey: false, timestamps: true }
 );

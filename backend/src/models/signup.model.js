@@ -12,7 +12,8 @@ const AuthSchema = new Schema({
         default: "User"
     },
     age: String,
-    gender: String
+    gender: String,
+    BlockedTime: Number
 });
 
 const Auth = model("Auth", AuthSchema);
