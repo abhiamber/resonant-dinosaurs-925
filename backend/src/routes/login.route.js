@@ -46,10 +46,10 @@ LoginRoute.get('/get', async (req, res) => {
     try {
         const user = await Auth.findOne({ email });
         let BlockedTime = user.BlockedTime;
-        if (currentTime - BlockedTime >= 120000 && BlockedTime !== undefined) {
+        if (currentTime - BlockedTime >= 86400000 && BlockedTime !== undefined) {
             await Auth.updateOne({ email }, { $unset: { BlockedTime } });
             res.send({ msg: "Not Blocked" });
-        } else if (currentTime - BlockedTime < 120000 && BlockedTime !== undefined) {
+        } else if (currentTime - BlockedTime < 86400000 && BlockedTime !== undefined) {
             res.send({ msg: "Blocked" });
         } else {
             res.send({ msg: "Login Successful" });
