@@ -111,7 +111,6 @@ export default function Register() {
                                 onChange={(e) => Setemail(e.target.value)}
                                 required
                             />
-                            {email.includes("@gmail.com") === false ? <p style={{ color: "red" }}>Not valid Email*</p> : null}
                         </FormControl>
                         <FormControl id="phone">
                             <FormLabel>Phone Number</FormLabel>
