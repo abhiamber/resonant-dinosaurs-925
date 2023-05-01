@@ -32,8 +32,6 @@ Use this Credentials to Signup as a Admin.
 - Special Admin login is provided.
 - All components are cross-device cross platform compatible.
 
-
-
 ## Installation
 
 Clone the Repository from Github. Then do the following steps:
