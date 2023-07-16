@@ -33,7 +33,7 @@ export default function Register() {
         if (name === "" || email === "" || password === "") {
             alert(`Please Fill Mandatory * Fileld`)
         };
-        if (email.includes("@gmail.com") === false) {
+        if (email.includes("@") === false) {
             alert("Email Not Correct");
             return;
         };

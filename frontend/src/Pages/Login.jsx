@@ -51,7 +51,7 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (email.includes("@gmail.com") === false) {
+    if (email.includes("@") === false) {
       alert("Email Not Correct");
       return;
     };
