@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BackendURL from '../BackendURL';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
-import { Alert, AlertIcon, Box, Flex, Heading, Spinner, Stack, Table, Tbody, Td, Thead, Tr, FormControl, FormLabel, Input, Button, useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex, Heading, Spinner, Stack, Table, Tbody, Td, Thead, Tr, FormControl, FormLabel, Input, Button, useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, Th, TableContainer } from '@chakra-ui/react';
 import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai';
 
 let init = {
@@ -225,7 +225,7 @@ const Admin = () => {
             <hr />
 
             <Heading textAlign={"center"} m={"2% 0"} fontSize={'23px'}>Add Product</Heading>
-            <Box w='30%' p={'3% 0'} m='auto' display={'flex'} justifyContent={'center'} alignItems={'center'} boxShadow= "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px">
+            <Box w={['87%', '87%', '30%']} p={'3% 1%'} m='auto' display={'flex'} justifyContent={'center'} alignItems={'center'} boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px">
                 <form onSubmit={handleSubmitProd}>
                     <Input mb='1%' w='300px' placeholder='Product Name' type='text' value={prod_name} name='prod_name' onChange={handleProdChange} />
                     <br />
@@ -246,16 +246,18 @@ const Admin = () => {
                 <Input w={{ base: "15%", sm: "30%", lg: "15%" }} placeholder='Search Address' onChange={handleFilter1}></Input>
             </Box>
 
-            <Box>
-                <Table variant={"striped"}>
-                    <Thead fontSize={"23px"} color="blue">
+
+
+            <TableContainer mt={["15%", "15%", "0%"]}>
+                <Table size='sm' variant={"striped"}>
+                    <Thead>
                         <Tr>
-                            <Td>Name</Td>
-                            <Td>Email</Td>
-                            <Td>Address</Td>
-                            <Td>Login At</Td>
-                            <Td>Update</Td>
-                            <Td>Remove</Td>
+                            <Th>Name</Th>
+                            <Th>Email</Th>
+                            <Th>Address</Th>
+                            <Th>Login At</Th>
+                            <Th>Update</Th>
+                            <Th>Remove</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -271,7 +273,8 @@ const Admin = () => {
                         )}
                     </Tbody>
                 </Table>
-            </Box>
+            </TableContainer>
+
             <Box>
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
@@ -364,14 +367,16 @@ const Admin = () => {
             <hr />
 
             <Heading textAlign={"left"} m={"2% 0"}>Orders Details</Heading>
-            <Box m={"2% 0"}>
-                <Table variant={"striped"}>
-                    <Thead fontSize={"23px"} color="blue">
+
+
+            <TableContainer mt={["15%", "15%", "0%"]}>
+                <Table size='sm' variant={"striped"}>
+                    <Thead>
                         <Tr>
-                            <Td>UserID</Td>
-                            <Td>When</Td>
-                            <Td>Status</Td>
-                            <Td>Change Status</Td>
+                            <Th>UserID</Th>
+                            <Th>When</Th>
+                            <Th>Status</Th>
+                            <Th>Change Status</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -388,7 +393,7 @@ const Admin = () => {
                         ) : <Heading>No Order Till Now</Heading>}
                     </Tbody>
                 </Table>
-            </Box>
+            </TableContainer>
 
         </>
     );
