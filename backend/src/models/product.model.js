@@ -7,7 +7,7 @@ const ProductSchema = new Schema({
   price: { type: Number, required: true },
   price_sign: String,
   image_link: { type: String, required: true },
-  image_link1: { type: String, required: true },
+  image_link1: { type: String },
 
   description: { type: String, required: true },
   rating: Number,
@@ -15,7 +15,7 @@ const ProductSchema = new Schema({
   category: String,
   product_type: String,
   quantity: Number,
-});
+}, {versionKey:false});
 
 const ProdModel = model("product", ProductSchema);
 

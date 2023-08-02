@@ -5,7 +5,14 @@ import { useState } from 'react';
 import { Alert, AlertIcon, Box, Flex, Heading, Spinner, Stack, Table, Tbody, Td, Thead, Tr, FormControl, FormLabel, Input, Button, useColorModeValue, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure } from '@chakra-ui/react';
 import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai';
 
+let init = {
+    prod_name: '',
+    price: '',
+    image_link: '',
+    description: ''
+}
 const Admin = () => {
+    const [formData, setFormData] = useState(init);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -154,7 +161,56 @@ const Admin = () => {
         });
     };
 
-    console.log(orders);
+    const handleProdChange = (e) => {
+        let { type, name, value, files } = e.target;
+        value = type==='file' ? files[0] : value;
+        setFormData({ ...formData, [name]: value });
+    };
+    const handleSubmitProd = async (e) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        data.append("file", formData.image_link);
+        data.append("upload_preset", "ml_default");
+        data.append("cloud_name", "djib5oxng");
+
+        fetch("https://api.cloudinary.com/v1_1/dd9cmhunr/image/upload", {
+            method: "POST",
+            body: data,
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data.url)
+                formData['image_link'] = data.url;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+            console.log(formData)
+            
+
+        // let res = await fetch(`${BackendURL}/user/addProduct`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "email": localStorage.getItem("email")
+        //     },
+        //     body: JSON.stringify(formData)
+        // }).then((res) => res.json()).then((res) => {
+        //     alert(`${res.msg}`)
+        // }).catch((err) => {
+        //     console.log(err)
+        // })
+        // setFormData({
+        //     prod_name: '',
+        //     price: '',
+        //     image_link: '',
+        //     description: ''
+        // });
+    };
+
+    const { prod_name, price, image_link, description } = formData;
     const { name, email, address } = state;
     return (
         <>
@@ -314,6 +370,23 @@ const Admin = () => {
                         ) : <Heading>No Order Till Now</Heading>}
                     </Tbody>
                 </Table>
+            </Box>
+
+
+
+            <Heading textAlign={'center'} mt='5%'>Add Product</Heading>
+            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                <form onSubmit={handleSubmitProd}>
+                    <Input mb='1%' w='300px' placeholder='Product Name' type='text' value={prod_name} name='prod_name' onChange={handleProdChange} />
+                    <br />
+                    <Input mb='1%' w='300px' placeholder='price' type='number' value={price} name='price' onChange={handleProdChange} />
+                    <br />
+                    <Input mb='1%' w='300px' placeholder='Image Link' name='image_link' onChange={handleProdChange} type='file' />
+                    <br />
+                    <Input mb='1%' w='300px' placeholder='Description' type='text' value={description} name='description' onChange={handleProdChange} />
+                    <br />
+                    <Input bg='blue' w='300px' type='submit' value={'ADD PRODUCT'} />
+                </form>
             </Box>
         </>
     );

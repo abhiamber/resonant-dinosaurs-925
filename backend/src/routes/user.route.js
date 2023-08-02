@@ -2,7 +2,23 @@ const express = require("express");
 const app = express.Router();
 const UserModel = require("../models/user.model");
 const { validate } = require('../middleware/validate.middleware');
+const ProdModel = require("../models/product.model");
 app.use(validate); //it is admin validation;
+
+
+
+app.post('/addProduct', async (req, res) => {
+    const { prod_name, price, image_link, description } = req.body;
+
+    try {
+        let prod = new ProdModel({ id: Math.random() + Date.now(), name: prod_name, price, image_link, description });
+        await prod.save();
+        res.send({ msg: "Product added Successfully in DB" });
+    } catch (e) {
+        res.send({ msg: e.message });
+    }
+});
+
 
 // ****************list of all users with Pagination & Sorting/Filtering*************
 app.get("/", async (req, res) => {
