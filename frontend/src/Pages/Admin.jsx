@@ -188,11 +188,10 @@ const Admin = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-
+    // post request for add a poduct
     const handleSubmitProd = async (e) => {
         e.preventDefault();
-        console.log(formData)
-        // post request for add a poduct
+
         let res = await fetch(`${BackendURL}/user/addProduct`, {
             method: "POST",
             headers: {
@@ -218,12 +217,28 @@ const Admin = () => {
     return (
         <>
             <Heading textAlign={"center"} m={"2% 0"}>Admin Panel</Heading>
-            {loading && <Spinner color='red' />}
+            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>{loading && <Spinner color='red' />}</Box>
             {error && <Alert status='error'>
                 <AlertIcon />
                 Somthing went wrong!
             </Alert>}
             <hr />
+
+            <Heading textAlign={"center"} m={"2% 0"} fontSize={'23px'}>Add Product</Heading>
+            <Box w='30%' p={'3% 0'} m='auto' display={'flex'} justifyContent={'center'} alignItems={'center'} boxShadow= "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px">
+                <form onSubmit={handleSubmitProd}>
+                    <Input mb='1%' w='300px' placeholder='Product Name' type='text' value={prod_name} name='prod_name' onChange={handleProdChange} />
+                    <br />
+                    <Input mb='1%' w='300px' placeholder='price' type='number' value={price} name='price' onChange={handleProdChange} />
+                    <br />
+                    <Input mb='1%' w='220px' placeholder='Image Link' name='image_link' onChange={(e) => setCloudinary(e.target.files[0])} type='file' />
+                    <Button color={'green'} bg='black' onClick={handleUploadInCloudinary}>{loading ? "Loading" : "Upload"}</Button>
+                    <br />
+                    <Input mb='1%' w='300px' placeholder='Description' type='text' value={description} name='description' onChange={handleProdChange} />
+                    <br />
+                    <Input bg='blue' w='300px' type='submit' value={'ADD PRODUCT'} />
+                </form>
+            </Box>
 
             <Heading textAlign={"left"} m={"2% 0"}>Users Details</Heading>
             <Box m={"1% 0"} display={"flex"} justifyContent="center" alignItems={"center"} gap="10px">
@@ -375,23 +390,6 @@ const Admin = () => {
                 </Table>
             </Box>
 
-
-
-            <Heading textAlign={'center'} mt='5%'>Add Product</Heading>
-            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                <form onSubmit={handleSubmitProd}>
-                    <Input mb='1%' w='300px' placeholder='Product Name' type='text' value={prod_name} name='prod_name' onChange={handleProdChange} />
-                    <br />
-                    <Input mb='1%' w='300px' placeholder='price' type='number' value={price} name='price' onChange={handleProdChange} />
-                    <br />
-                    <Input mb='1%' w='300px' placeholder='Image Link' name='image_link' onChange={(e) => setCloudinary(e.target.files[0])} type='file' />
-                    <Button onClick={handleUploadInCloudinary}>Upload</Button>
-                    <br />
-                    <Input mb='1%' w='300px' placeholder='Description' type='text' value={description} name='description' onChange={handleProdChange} />
-                    <br />
-                    <Input bg='blue' w='300px' type='submit' value={'ADD PRODUCT'} />
-                </form>
-            </Box>
         </>
     );
 }
