@@ -27,6 +27,7 @@ const Admin = () => {
         email: "",
         address: ""
     });
+    const [Cloudinary, setCloudinary] = useState('');
 
     useEffect(() => {
         getUser(page);
@@ -161,56 +162,58 @@ const Admin = () => {
         });
     };
 
-    const handleProdChange = (e) => {
-        let { type, name, value, files } = e.target;
-        value = type==='file' ? files[0] : value;
-        setFormData({ ...formData, [name]: value });
-    };
-    const handleSubmitProd = async (e) => {
-        e.preventDefault();
-
+    const handleUploadInCloudinary = () => {
         const data = new FormData();
-        data.append("file", formData.image_link);
+        data.append("file", Cloudinary);
         data.append("upload_preset", "ml_default");
         data.append("cloud_name", "djib5oxng");
 
+        // cloudinary setup
         fetch("https://api.cloudinary.com/v1_1/dd9cmhunr/image/upload", {
             method: "POST",
             body: data,
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.url)
-                formData['image_link'] = data.url;
+                localStorage.setItem('cloudinary', data.url);
             })
             .catch((err) => {
                 console.log(err);
             });
 
-            console.log(formData)
-            
-
-        // let res = await fetch(`${BackendURL}/user/addProduct`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "email": localStorage.getItem("email")
-        //     },
-        //     body: JSON.stringify(formData)
-        // }).then((res) => res.json()).then((res) => {
-        //     alert(`${res.msg}`)
-        // }).catch((err) => {
-        //     console.log(err)
-        // })
-        // setFormData({
-        //     prod_name: '',
-        //     price: '',
-        //     image_link: '',
-        //     description: ''
-        // });
     };
 
-    const { prod_name, price, image_link, description } = formData;
+    const handleProdChange = (e) => {
+        let { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+
+    const handleSubmitProd = async (e) => {
+        e.preventDefault();
+        console.log(formData)
+        // post request for add a poduct
+        let res = await fetch(`${BackendURL}/user/addProduct`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "email": localStorage.getItem("email")
+            },
+            body: JSON.stringify({ image_link: localStorage.getItem('cloudinary'), price: formData.price, prod_name: formData.prod_name, description: formData.description })
+        }).then((res) => res.json()).then((res) => {
+            alert(`${res.msg}`)
+        }).catch((err) => {
+            console.log(err);
+        })
+        setFormData({
+            prod_name: '',
+            price: '',
+            image_link: '',
+            description: ''
+        });
+    };
+
+    const { prod_name, price, description } = formData;
     const { name, email, address } = state;
     return (
         <>
@@ -381,7 +384,8 @@ const Admin = () => {
                     <br />
                     <Input mb='1%' w='300px' placeholder='price' type='number' value={price} name='price' onChange={handleProdChange} />
                     <br />
-                    <Input mb='1%' w='300px' placeholder='Image Link' name='image_link' onChange={handleProdChange} type='file' />
+                    <Input mb='1%' w='300px' placeholder='Image Link' name='image_link' onChange={(e) => setCloudinary(e.target.files[0])} type='file' />
+                    <Button onClick={handleUploadInCloudinary}>Upload</Button>
                     <br />
                     <Input mb='1%' w='300px' placeholder='Description' type='text' value={description} name='description' onChange={handleProdChange} />
                     <br />
