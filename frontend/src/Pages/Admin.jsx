@@ -27,7 +27,6 @@ const Admin = () => {
         email: "",
         address: ""
     });
-    const [Cloudinary, setCloudinary] = useState('');
 
     useEffect(() => {
         getUser(page);
@@ -162,9 +161,39 @@ const Admin = () => {
         });
     };
 
-    const handleUploadInCloudinary = () => {
+    // const handleUploadInCloudinary = () => {
+    //     const data = new FormData();
+    //     data.append("file", Cloudinary);
+    //     data.append("upload_preset", "ml_default");
+    //     data.append("cloud_name", "djib5oxng");
+
+    //     // cloudinary setup
+    //     fetch("https://api.cloudinary.com/v1_1/dd9cmhunr/image/upload", {
+    //         method: "POST",
+    //         body: data,
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             localStorage.setItem('cloudinary', data.url);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+
+    // };
+
+    const handleProdChange = (e) => {
+        let { type, name, value, files } = e.target;
+        value = type === 'file' ? files[0] : value;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    // post request for add a poduct
+    const handleSubmitProd = async (e) => {
+        e.preventDefault();
+
         const data = new FormData();
-        data.append("file", Cloudinary);
+        data.append("file", formData.image_link);
         data.append("upload_preset", "ml_default");
         data.append("cloud_name", "djib5oxng");
 
@@ -181,17 +210,14 @@ const Admin = () => {
                 console.log(err);
             });
 
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            addProductFunc();
+        }, 4000);
     };
 
-    const handleProdChange = (e) => {
-        let { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    // post request for add a poduct
-    const handleSubmitProd = async (e) => {
-        e.preventDefault();
-
+    async function addProductFunc() {
         let res = await fetch(`${BackendURL}/user/addProduct`, {
             method: "POST",
             headers: {
@@ -210,14 +236,14 @@ const Admin = () => {
             image_link: '',
             description: ''
         });
-    };
+    }
 
     const { prod_name, price, description } = formData;
     const { name, email, address } = state;
     return (
         <>
             <Heading textAlign={"center"} m={"2% 0"}>Admin Panel</Heading>
-            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>{loading && <Spinner color='red' />}</Box>
+            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>{loading && <Spinner color='red' size={'lg'} />}</Box>
             {error && <Alert status='error'>
                 <AlertIcon />
                 Somthing went wrong!
@@ -231,8 +257,7 @@ const Admin = () => {
                     <br />
                     <Input mb='1%' w='300px' placeholder='price' type='number' value={price} name='price' onChange={handleProdChange} />
                     <br />
-                    <Input mb='1%' w='220px' placeholder='Image Link' name='image_link' onChange={(e) => setCloudinary(e.target.files[0])} type='file' />
-                    <Button color={'green'} bg='black' onClick={handleUploadInCloudinary}>{loading ? "Loading" : "Upload"}</Button>
+                    <Input mb='1%' w='220px' placeholder='Image Link' name='image_link' onChange={handleProdChange} type='file' />
                     <br />
                     <Input mb='1%' w='300px' placeholder='Description' type='text' value={description} name='description' onChange={handleProdChange} />
                     <br />
