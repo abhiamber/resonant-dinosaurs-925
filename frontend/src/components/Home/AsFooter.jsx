@@ -197,13 +197,14 @@ export default function AsFooter() {
         </VStack>
       </SimpleGrid>
       <Box border="1px" borderColor="#e8e8e8" w="85%" m="auto"></Box>
+
       <SimpleGrid columns={[1, 1, 2]}>
         <SimpleGrid
           columns={4}
           pl={[null, null, "120px"]}
           pr={[null, null, "120px"]}
           spacing="150px"
-          display={{base: 'none', sm: "none", md: "grid", xl: "grid", "2xl": "grid"}}
+          display={{ base: 'none', sm: "none", md: "grid", xl: "grid", "2xl": "grid" }}
         >
           <Box w="200px">
             <Heading as="h5" size="15px" color="gray" pt="40px" pl="30px">
@@ -231,7 +232,7 @@ export default function AsFooter() {
               CONNECT
             </Heading>
           </Box>
-          <Box pl="-20px" w="300px">
+          <Box w={{ base: '200px', "2xl": "300px", xl:"200px", lg: '300px', sm: '150px' }}>
             <Image
               cursor="pointer"
               w="200px"
